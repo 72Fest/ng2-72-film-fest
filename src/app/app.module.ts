@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {FileTransfer} from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
+import { Push } from '@ionic-native/push';
 @NgModule({
   declarations: [
     MyApp,
@@ -32,7 +33,8 @@ import { Camera } from '@ionic-native/camera';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FileTransfer,
-    Camera
+    Camera,
+    Push
   ]
 })
 export class AppModule {}
