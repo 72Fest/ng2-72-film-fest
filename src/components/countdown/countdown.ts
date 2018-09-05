@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
  * Components.
  */
 @Component({
-  selector: 'countdown',
+  selector: 'app-countdown',
   templateUrl: 'countdown.html'
 })
 export class CountdownComponent {
