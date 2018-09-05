@@ -1,3 +1,32 @@
-countdown {
+@import '../../theme/variables';
 
+countdown {
+}
+
+.countdown-container {
+  background-color: map-get($colors, primary);
+  text-align: center;
+
+  .countdown-title {
+    text-align: center;
+    font-size: 2.4rem;
+  }
+
+  .countdown-digits {
+    display: flex;
+    justify-content: center;
+  }
+
+  .countdown-digit {
+    text-align: center;
+    padding: 5px;
+  }
+
+  .countdown-digit-label {
+
+  }
+
+  .countdown-digit-val {
+    background-color: white;
+  }
 }

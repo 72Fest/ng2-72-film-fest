@@ -12,11 +12,14 @@ import { Component } from '@angular/core';
 })
 export class CountdownComponent {
 
-  text: string;
+  title: string = 'Loading ...';
+  days: string = '--';
+  hours: string = '--';
+  minutes: string = '--';
+  seconds: string = '--';
 
   constructor() {
-    console.log('Hello CountdownComponent Component');
-    this.text = 'Hello World';
+    this.title = 'Sample Title';
   }
 
 }
