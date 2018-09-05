@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { ComponentsModule } from '../components/components.module';
+import { HttpClientModule } from '@angular/common/http'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -14,6 +15,7 @@ import {FileTransfer} from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
 import { Push } from '@ionic-native/push';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { DataManagerProvider } from '../providers/data-manager/data-manager';
 @NgModule({
   declarations: [
     MyApp,
@@ -23,6 +25,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
     ComponentsModule
   ],
   bootstrap: [IonicApp],
@@ -38,7 +41,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     FileTransfer,
     Camera,
     Push,
-    InAppBrowser
+    InAppBrowser,
+    DataManagerProvider
   ]
 })
 export class AppModule {}
