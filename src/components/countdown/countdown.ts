@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { TimestampModel } from '../../models/timestamp.model';
 
 /**
  * Generated class for the CountdownComponent component.
@@ -10,9 +11,11 @@ import { Component } from '@angular/core';
   selector: 'app-countdown',
   templateUrl: 'countdown.html'
 })
-export class CountdownComponent {
+export class CountdownComponent implements OnChanges {
 
-  title: string = 'Loading ...';
+  @Input() title: string = 'Loading ...';
+  @Input() timestamp: TimestampModel;
+
   days: string = '--';
   hours: string = '--';
   minutes: string = '--';
@@ -20,6 +23,19 @@ export class CountdownComponent {
 
   constructor() {
     this.title = 'Sample Title';
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // update timestamp on change
+    if (changes.timestamp) {
+      const curTimestamp:TimestampModel = changes.timestamp.currentValue;
+      this.timestamp = curTimestamp;
+    }
+
+    // update title on change
+    if (changes.title && changes.title.currentValue) {
+      this.title = changes.title.currentValue;
+    }
   }
 
 }
