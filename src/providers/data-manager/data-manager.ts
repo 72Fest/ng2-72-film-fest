@@ -69,13 +69,22 @@ export class DataManagerProvider {
 
     return this.http.get<NewsModel>(url)
       .map((model: NewsModel) => {
+        const newsItems: NewsItemModel[] = new Array();
+
         // process markdown to html for all items
         model.message.map((curNewsItem: NewsItemModel) => {
+          curNewsItem = new NewsItemModel(curNewsItem);
+
           // convert markdown to HTML
           curNewsItem.content = processMd(curNewsItem.content);
+          // save news items to new array
+          newsItems.push(curNewsItem);
 
           return curNewsItem;
         });
+
+        // update news items
+        model.message = newsItems;
 
         return model;
       });
