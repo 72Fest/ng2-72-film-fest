@@ -5,10 +5,12 @@ import { Observable } from 'rxjs/Observable';
 import { NewsModel } from '../../models/news.model';
 import { NewsItemModel } from '../../models/news-item.model';
 import { markdown } from 'markdown';
+import { TeamsModel } from '../../models/teams.model';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
 const endpointNews = '/news';
+const endpointTeams = '/teams';
 
 /*
   Generated class for the DataManagerProvider provider.
@@ -88,5 +90,16 @@ export class DataManagerProvider {
 
         return model;
       });
+  }
+
+  /**
+   * Retrieve list of teams and update thumbnail URLs
+   * @returns Observable<TeamsModel> model with deserialized values
+   */
+  getTeams(): Observable<TeamsModel> {
+    const url = `${baseApiUrl}${endpointTeams}`;
+
+    return this.http.get<TeamsModel>(url)
+      .map((model: TeamsModel) => new TeamsModel().deserialize(model));
   }
 }
