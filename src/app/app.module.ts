@@ -11,7 +11,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {FileTransfer} from '@ionic-native/file-transfer';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
 import { Push } from '@ionic-native/push';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -37,7 +37,7 @@ import { DataManagerProvider } from '../providers/data-manager/data-manager';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     FileTransfer,
     Camera,
     Push,
@@ -45,4 +45,4 @@ import { DataManagerProvider } from '../providers/data-manager/data-manager';
     DataManagerProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

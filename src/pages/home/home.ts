@@ -9,8 +9,8 @@ import { TimestampModel } from '../../models/timestamp.model';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  curTitle:string;
-  curTimestamp:TimestampModel;
+  curTitle: string;
+  curTimestamp: TimestampModel;
 
   constructor(public navCtrl: NavController, private dm: DataManagerProvider) {
     this.updateCountdown();
@@ -21,7 +21,7 @@ export class HomePage {
    */
   updateCountdown() {
     this.dm.getCountdown()
-      .subscribe((model:CountdownModel)=> {
+      .subscribe((model: CountdownModel) => {
         // update countdown component with caption and timestamp
         this.curTitle = model.message.caption;
         this.curTimestamp = model.message.time;

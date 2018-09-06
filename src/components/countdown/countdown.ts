@@ -17,8 +17,8 @@ export class CountdownComponent implements OnChanges {
   @Input() title: string = 'Loading ...';
   @Input() timestamp: TimestampModel;
 
-  timer:Observable<TimestampModel>;
-  timerSubscription:Subscription;
+  timer: Observable<TimestampModel>;
+  timerSubscription: Subscription;
 
   days: string = '--';
   hours: string = '--';
@@ -29,23 +29,23 @@ export class CountdownComponent implements OnChanges {
     this.title = 'Sample Title';
   }
 
-   formatTimeValue(val) {
+  formatTimeValue(val) {
     return (val < 10) ? '0' + val : val;
   }
 
-  calcTimeDiff(t:TimestampModel):TimestampModel {
+  calcTimeDiff(t: TimestampModel): TimestampModel {
     const secsInMin = 60;
     const secsInHour = secsInMin * 60;
     const secsInDay = secsInHour * 24;
 
-    const timeLeft:TimestampModel = new TimestampModel();
+    const timeLeft: TimestampModel = new TimestampModel();
     const curDate = new Date();
-    let curSecs:number;
-    let timeDiff:number;
+    let curSecs: number;
+    let timeDiff: number;
 
     // calculate time diff
     const endDate = new Date(t.year, t.month - 1, t.day, t.hour, t.minute, t.second);
-    const endSecs:number = endDate.getTime() / 1000;
+    const endSecs: number = endDate.getTime() / 1000;
 
     curSecs = curDate.getTime() / 1000;
     timeDiff = endSecs - curSecs;
@@ -72,8 +72,8 @@ export class CountdownComponent implements OnChanges {
    * @param {TimestampModel} curTimestamp TimestampModel current timestamp retrieved from API
    * @returns TimestampModel differences in time or undefined if expired
    */
-  updateCountdown(curTimestamp:TimestampModel){
-    const timeDiff:TimestampModel = this.calcTimeDiff(curTimestamp);
+  updateCountdown(curTimestamp: TimestampModel) {
+    const timeDiff: TimestampModel = this.calcTimeDiff(curTimestamp);
 
     // update countdown
     this.timestamp = curTimestamp;
@@ -90,9 +90,9 @@ export class CountdownComponent implements OnChanges {
    * Initializes and subscribes to an interval observer to update the counter
    * @param {TimestampModel} curTimestamp
    */
-  initTimer(curTimestamp:TimestampModel) {
+  initTimer(curTimestamp: TimestampModel) {
     // first update counts to calc differences
-    const timeDiff:TimestampModel = this.updateCountdown(curTimestamp);
+    const timeDiff: TimestampModel = this.updateCountdown(curTimestamp);
 
     // we have a valid timestamp, lets update it
     if (this.timestamp && !isNaN(timeDiff.second)) {
@@ -104,7 +104,7 @@ export class CountdownComponent implements OnChanges {
 
       // create observable that fires every second
       this.timer = Observable.interval(1000)
-        .map(()=> this.calcTimeDiff(this.timestamp));
+        .map(() => this.calcTimeDiff(this.timestamp));
 
       // subscribe to timer observable to update counter
       this.timerSubscription = this.timer
@@ -115,7 +115,7 @@ export class CountdownComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     // update timestamp on change
     if (changes.timestamp && changes.timestamp.currentValue) {
-      const curTimestamp:TimestampModel = changes.timestamp.currentValue;
+      const curTimestamp: TimestampModel = changes.timestamp.currentValue;
 
       // start the timer upon receiving the current timestamp
       this.initTimer(curTimestamp);
