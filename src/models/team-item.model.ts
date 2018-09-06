@@ -6,6 +6,7 @@ export class TeamItemModel implements Deserializable {
   teamName: string;
   bio: string;
   logo: string;
+  logoThumb: string;
   films: TeamItemFilmsModel[];
 
   deserialize(input: any): this {
@@ -17,6 +18,11 @@ export class TeamItemModel implements Deserializable {
       input.films.forEach((curFilmItem: TeamItemFilmsModel) => {
         films.push(new TeamItemFilmsModel().deserialize(curFilmItem));
       });
+    }
+
+    // add thumb url if logo is defined
+    if (input.logo) {
+      this.logoThumb = input.logo.replace(/\.([a-z]{3})$/, '-thumb.$1');
     }
 
     this.films = films;
