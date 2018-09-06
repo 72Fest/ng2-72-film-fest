@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { CountdownModel } from '../../models/countdown.model';
 import { TimestampModel } from '../../models/timestamp.model';
+import { NewsModel } from '../../models/news.model';
 
 @Component({
   selector: 'page-home',
@@ -14,6 +15,11 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, private dm: DataManagerProvider) {
     this.updateCountdown();
+
+    dm.getNews()
+      .subscribe((model: NewsModel) => {
+        console.log(model.message);
+      })
   }
 
   /**
