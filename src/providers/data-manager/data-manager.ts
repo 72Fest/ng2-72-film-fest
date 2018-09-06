@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { CountdownModel } from '../../models/countdown.model';
 import { Observable } from 'rxjs/Observable';
 import { NewsModel } from '../../models/news.model';
-import { NewsItemModel } from '../../models/news-item.model';
-import { markdown } from 'markdown';
 import { TeamsModel } from '../../models/teams.model';
 
 const baseApiUrl = 'https://api.72fest.com/api';
@@ -41,55 +39,9 @@ export class DataManagerProvider {
    */
   getNews(): Observable<NewsModel> {
     const url = `${baseApiUrl}${endpointNews}`;
-    const updateMarkdownLinks = (nodes) => {
-      const nodeType = nodes[0];
-      let nodeData;
-
-      if (nodeType === 'link') {
-        nodeData = nodes[1];
-        //if we found a link node, add an onclick to
-        //open the system browser
-        nodeData.class = 'ex-link';
-        nodeData['onclick'] = 'window.open(\'' + nodeData.href + '\', \'_system\', \'location=yes\')';
-        nodeData.href = '';
-      } else {
-        nodes.forEach(function (curNode) {
-          if (Array.isArray(curNode)) {
-            updateMarkdownLinks(curNode);
-          }
-        });
-      }
-
-      return nodes;
-    }
-    const processMd = (content) => {
-      let tree = markdown.parse(content);
-      tree = updateMarkdownLinks(tree);
-
-      return markdown.renderJsonML(markdown.toHTMLTree(tree));
-    }
 
     return this.http.get<NewsModel>(url)
-      .map((model: NewsModel) => {
-        const newsItems: NewsItemModel[] = new Array();
-
-        // process markdown to html for all items
-        model.message.map((curNewsItem: NewsItemModel) => {
-          curNewsItem = new NewsItemModel(curNewsItem);
-
-          // convert markdown to HTML
-          curNewsItem.content = processMd(curNewsItem.content);
-          // save news items to new array
-          newsItems.push(curNewsItem);
-
-          return curNewsItem;
-        });
-
-        // update news items
-        model.message = newsItems;
-
-        return model;
-      });
+      .map((model: NewsModel) => new NewsModel().deserialize(model));
   }
 
   /**
