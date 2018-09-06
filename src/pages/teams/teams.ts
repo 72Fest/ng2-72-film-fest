@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { TeamsModel } from '../../models/teams.model';
+import { TeamItemModel } from '../../models/team-item.model';
 
 /**
  * Generated class for the TeamsPage page.
@@ -16,6 +17,8 @@ import { TeamsModel } from '../../models/teams.model';
 })
 export class TeamsPage {
 
+  teams: TeamItemModel[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private dm: DataManagerProvider) {
 
   }
@@ -24,7 +27,8 @@ export class TeamsPage {
     console.log('ionViewDidLoad TeamsPage');
     this.dm.getTeams()
       .subscribe((model: TeamsModel) => {
-        console.log('TODO: model', model);
+        // populate team items
+        this.teams = model.message;
       })
   }
 
