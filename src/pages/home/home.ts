@@ -4,6 +4,7 @@ import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { CountdownModel } from '../../models/countdown.model';
 import { TimestampModel } from '../../models/timestamp.model';
 import { NewsModel } from '../../models/news.model';
+import { NewsItemModel } from '../../models/news-item.model';
 
 @Component({
   selector: 'page-home',
@@ -12,6 +13,7 @@ import { NewsModel } from '../../models/news.model';
 export class HomePage {
   curTitle: string;
   curTimestamp: TimestampModel;
+  newsItems: NewsItemModel[];
 
   constructor(public navCtrl: NavController, private dm: DataManagerProvider) {
     this.updateCountdown();
@@ -19,6 +21,7 @@ export class HomePage {
     dm.getNews()
       .subscribe((model: NewsModel) => {
         console.log(model.message);
+        this.newsItems = model.message;
       })
   }
 

@@ -14,4 +14,6 @@
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
+
+  <app-news-card *ngFor="let curNewsItem of newsItems" [newsItem]="curNewsItem"></app-news-card>
 </ion-content>
