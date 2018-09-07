@@ -17,7 +17,7 @@ export class CountdownComponent implements OnChanges {
   @Input() title: string = 'Loading ...';
   @Input() timestamp: TimestampModel;
 
-  timer: Observable<TimestampModel>;
+  timer: Observable<number>;
   timerSubscription: Subscription;
 
   days: string = '--';
@@ -26,7 +26,6 @@ export class CountdownComponent implements OnChanges {
   seconds: string = '--';
 
   constructor() {
-    this.title = 'Sample Title';
   }
 
   formatTimeValue(val) {
@@ -69,14 +68,11 @@ export class CountdownComponent implements OnChanges {
 
   /**
    * Calculate the days, hours, minutes and seconds left given a specified timestamp
-   * @param {TimestampModel} curTimestamp TimestampModel current timestamp retrieved from API
+   * @param {TimestampModel} endDateTimestamp ending timestamp retrieved from API
    * @returns TimestampModel differences in time or undefined if expired
    */
-  updateCountdown(curTimestamp: TimestampModel) {
-    const timeDiff: TimestampModel = this.calcTimeDiff(curTimestamp);
-
-    // update countdown
-    this.timestamp = curTimestamp;
+  updateCountdown(endDateTimestamp: TimestampModel) {
+    const timeDiff: TimestampModel = this.calcTimeDiff(endDateTimestamp);
 
     this.days = timeDiff.day ? String(timeDiff.day) : '00';
     this.hours = timeDiff.day ? String(timeDiff.hour) : '00';
@@ -91,6 +87,9 @@ export class CountdownComponent implements OnChanges {
    * @param {TimestampModel} curTimestamp
    */
   initTimer(curTimestamp: TimestampModel) {
+    // update countdown
+    this.timestamp = curTimestamp;
+
     // first update counts to calc differences
     const timeDiff: TimestampModel = this.updateCountdown(curTimestamp);
 
@@ -103,12 +102,11 @@ export class CountdownComponent implements OnChanges {
       }
 
       // create observable that fires every second
-      this.timer = Observable.interval(1000)
-        .map(() => this.calcTimeDiff(this.timestamp));
+      this.timer = Observable.interval(1000);
 
       // subscribe to timer observable to update counter
       this.timerSubscription = this.timer
-        .subscribe((ts) => this.updateCountdown(ts));
+        .subscribe(() => this.updateCountdown(this.timestamp));
     }
   }
 
