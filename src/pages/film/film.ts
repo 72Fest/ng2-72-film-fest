@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams, ViewController, NavController } from 'ionic-angular';
+import { TeamItemFilmsModel } from '../../models/team-item-films.model';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the FilmPage page.
@@ -14,11 +16,20 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class FilmPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  film: TeamItemFilmsModel;
+  urlSafe: SafeResourceUrl;
+
+  constructor(public sanitizer: DomSanitizer, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+    console.log('navParams', navParams);
+    this.film = navParams.get('film');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FilmPage');
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.film.url);
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }

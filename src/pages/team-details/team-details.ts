@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { TeamItemModel } from '../../models/team-item.model';
 import { TeamItemFilmsModel } from '../../models/team-item-films.model';
+import { FilmPage } from '../film/film';
 
 /**
  * Generated class for the TeamDetailsPage page.
@@ -17,7 +18,7 @@ import { TeamItemFilmsModel } from '../../models/team-item-films.model';
 export class TeamDetailsPage {
   team: TeamItemModel;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     // populate the team variable from the nav params
     this.team = <TeamItemModel>this.navParams.get('team');
   }
@@ -26,7 +27,8 @@ export class TeamDetailsPage {
   }
 
   filmSelected(film: TeamItemFilmsModel) {
-    console.log('film', film);
+    const modal = this.modalCtrl.create(FilmPage, { film });
+    modal.present();
   }
 
 }
