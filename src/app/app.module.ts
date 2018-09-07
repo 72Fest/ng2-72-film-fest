@@ -18,13 +18,16 @@ import { Push } from '@ionic-native/push';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { TeamDetailsPage } from '../pages/team-details/team-details';
+import { FilmPage } from '../pages/film/film';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     TeamsPage,
-    TeamDetailsPage
+    TeamDetailsPage,
+    FilmPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { TeamDetailsPage } from '../pages/team-details/team-details';
     HomePage,
     ListPage,
     TeamsPage,
-    TeamDetailsPage
+    TeamDetailsPage,
+    FilmPage
   ],
   providers: [
     StatusBar,
