@@ -11,12 +11,25 @@ export class TeamItemModel implements Deserializable {
 
   deserialize(input: any): this {
     Object.assign(this, input);
-    const films = new Array<TeamItemFilmsModel>();
+    let films = new Array<TeamItemFilmsModel>();
 
     // deserialize films
     if (input.films && Array.isArray(input.films)) {
       input.films.forEach((curFilmItem: TeamItemFilmsModel) => {
         films.push(new TeamItemFilmsModel().deserialize(curFilmItem));
+      });
+
+      // descendant sort of films by year
+      films.sort((filmA: TeamItemFilmsModel, filmB: TeamItemFilmsModel) => {
+        if (filmA.year >= filmB.year) {
+          return -1;
+        }
+
+        if (filmA.year < filmB.year) {
+          return 1;
+        }
+
+        return 0;
       });
     }
 
