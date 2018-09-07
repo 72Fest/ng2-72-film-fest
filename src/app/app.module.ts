@@ -17,12 +17,14 @@ import { Camera } from '@ionic-native/camera';
 import { Push } from '@ionic-native/push';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
+import { TeamDetailsPage } from '../pages/team-details/team-details';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    TeamsPage
+    TeamsPage,
+    TeamDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { DataManagerProvider } from '../providers/data-manager/data-manager';
     MyApp,
     HomePage,
     ListPage,
-    TeamsPage
+    TeamsPage,
+    TeamDetailsPage
   ],
   providers: [
     StatusBar,
