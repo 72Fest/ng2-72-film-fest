@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { TeamsModel } from '../../models/teams.model';
 import { TeamItemModel } from '../../models/team-item.model';
+import { TeamDetailsPage } from '../team-details/team-details';
 
 /**
  * Generated class for the TeamsPage page.
@@ -32,4 +33,8 @@ export class TeamsPage {
       })
   }
 
+  itemSelected(selectedItem: TeamItemModel) {
+    // navigate to team details page view
+    this.navCtrl.push(TeamDetailsPage, { team: selectedItem });
+  }
 }

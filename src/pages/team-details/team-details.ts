@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TeamItemModel } from '../../models/team-item.model';
+import { TeamItemFilmsModel } from '../../models/team-item-films.model';
 
 /**
  * Generated class for the TeamDetailsPage page.
@@ -13,12 +15,18 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'team-details.html',
 })
 export class TeamDetailsPage {
+  team: TeamItemModel;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // populate the team variable from the nav params
+    this.team = <TeamItemModel>this.navParams.get('team');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamDetailsPage', this.navParams);
+  }
+
+  filmSelected(film: TeamItemFilmsModel) {
+    console.log('film', film);
   }
 
 }

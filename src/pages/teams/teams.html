@@ -28,7 +28,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let curTeam of teams">
+    <ion-item *ngFor="let curTeam of teams" (click)="itemSelected(curTeam)">
       <ion-thumbnail item-start>
         <img src="{{curTeam.logoThumb}}">
       </ion-thumbnail>
