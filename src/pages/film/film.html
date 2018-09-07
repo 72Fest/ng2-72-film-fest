@@ -4,13 +4,14 @@
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Close</button>
     </ion-buttons>
-    <ion-title>Modals</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <h2>{{film.title}}</h2>
+  <p>{{film.year}}</p>
   <iframe width="320" height="180" [src]="urlSafe" frameborder="0" allowfullscreen></iframe>
-  <button ion-button color="danger" full (click)="dismiss()">Close Modal</button>
+  <button ion-button color="danger" full (click)="dismiss()">Dismiss</button>
 </ion-content>
