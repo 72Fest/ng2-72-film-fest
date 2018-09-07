@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { ComponentsModule } from '../components/components.module';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -19,31 +19,13 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { TeamDetailsPage } from '../pages/team-details/team-details';
 import { FilmPage } from '../pages/film/film';
+import { PhotosPage } from '../pages/photos/photos';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    TeamsPage,
-    TeamDetailsPage,
-    FilmPage
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpClientModule,
-    ComponentsModule
-  ],
+  declarations: [MyApp, HomePage, ListPage, TeamsPage, TeamDetailsPage, FilmPage, PhotosPage],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule, ComponentsModule],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    TeamsPage,
-    TeamDetailsPage,
-    FilmPage
-  ],
+  entryComponents: [MyApp, HomePage, ListPage, TeamsPage, TeamDetailsPage, FilmPage, PhotosPage],
   providers: [
     StatusBar,
     SplashScreen,
@@ -55,4 +37,4 @@ import { FilmPage } from '../pages/film/film';
     DataManagerProvider
   ]
 })
-export class AppModule { }
+export class AppModule {}
