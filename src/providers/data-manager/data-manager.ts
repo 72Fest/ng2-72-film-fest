@@ -4,6 +4,7 @@ import { CountdownModel } from '../../models/countdown.model';
 import { Observable } from 'rxjs/Observable';
 import { NewsModel } from '../../models/news.model';
 import { TeamsModel } from '../../models/teams.model';
+import { PhotosModel } from '../../models/photos.model';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
@@ -53,5 +54,17 @@ export class DataManagerProvider {
     return this.http
       .get<TeamsModel>(url)
       .map((model: TeamsModel) => new TeamsModel().deserialize(model));
+  }
+
+  /**
+   * Retrieve list of photos and metadata
+   * @returns Observable<PhotosModel> model with deserialized photo values
+   */
+  getPhotos(): Observable<PhotosModel> {
+    const url = `${baseApiUrl}${endpointPhotos}`;
+
+    return this.http
+      .get<PhotosModel>(url)
+      .map((model: PhotosModel) => new PhotosModel().deserialize(model));
   }
 }
