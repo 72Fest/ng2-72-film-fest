@@ -8,6 +8,7 @@ export class PhotoItemModel implements Deserializable {
   isRejected: boolean;
   isFilmHour: boolean;
   filmHour: boolean;
+  votes: number = 0;
 
   deserialize(input: any): this {
     Object.assign(this, input);

@@ -5,6 +5,7 @@ import { PhotoItemModel } from './photo-item.model';
 export class PhotosResultsModel implements Deserializable {
   metadata: PhotoMetadataModel;
   photos: PhotoItemModel[];
+  votesHash: object;
 
   deserialize(input: any): this {
     Object.assign(this, input);
@@ -17,7 +18,13 @@ export class PhotosResultsModel implements Deserializable {
 
     if (input.photos && Array.isArray(input.photos)) {
       input.photos.forEach((curPhoto: PhotoItemModel) => {
-        photos.push(new PhotoItemModel().deserialize(curPhoto));
+        const newPhoto: PhotoItemModel = new PhotoItemModel().deserialize(curPhoto);
+
+        // update vote total if photo is in votes hash
+        if (this.votesHash && this.votesHash[newPhoto.id]) {
+          newPhoto.votes = this.votesHash[newPhoto.id];
+        }
+        photos.push(newPhoto);
       });
     }
 
