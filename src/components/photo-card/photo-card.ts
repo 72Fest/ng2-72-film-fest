@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PhotoItemModel } from '../../models/photo-item.model';
 
 /**
  * Generated class for the PhotoCardComponent component.
@@ -11,10 +12,8 @@ import { Component } from '@angular/core';
   templateUrl: 'photo-card.html'
 })
 export class PhotoCardComponent {
-  text: string;
+  @Input()
+  photo: PhotoItemModel;
 
-  constructor() {
-    console.log('Hello PhotoCardComponent Component');
-    this.text = 'Hello World';
-  }
+  constructor() {}
 }

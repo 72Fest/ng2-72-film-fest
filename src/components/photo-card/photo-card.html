@@ -1,4 +1,28 @@
-<!-- Generated template for the PhotoCardComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-card>
+  <ion-card-header>
+    Card Header
+  </ion-card-header>
+
+  <img src="{{photo.photoUrl}}" alt="">
+  <ion-card-content>
+    <p>3 minutes ago</p>
+  </ion-card-content>
+
+  <ion-row no-padding>
+    <ion-col>
+      <button ion-button clear icon-start>
+        <ion-icon large name='heart'></ion-icon>
+      </button>
+      <ion-badge item-end>8</ion-badge>
+      likes
+    </ion-col>
+    <ion-col text-right>
+      <button ion-button clear large icon-start>
+        <ion-icon name='logo-instagram'></ion-icon>
+      </button>
+      <button ion-button clear large icon-start>
+        <ion-icon name='share-alt'></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-card>
