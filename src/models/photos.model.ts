@@ -10,7 +10,7 @@ export class PhotosModel implements Deserializable {
 
     // deserialize photo results
     if (input.message) {
-      this.message = new PhotosResultsModel().deserialize(input);
+      this.message = new PhotosResultsModel().deserialize(input.message);
     }
 
     return this;

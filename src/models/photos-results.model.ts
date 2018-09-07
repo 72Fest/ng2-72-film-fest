@@ -12,12 +12,12 @@ export class PhotosResultsModel implements Deserializable {
     const photos: PhotoItemModel[] = new Array<PhotoItemModel>();
 
     if (input.metadata) {
-      this.metadata = new PhotoMetadataModel().deserialize(input);
+      this.metadata = new PhotoMetadataModel().deserialize(input.metadata);
     }
 
     if (input.photos && Array.isArray(input.photos)) {
       input.photos.forEach((curPhoto: PhotoItemModel) => {
-        this.photos.push(new PhotoItemModel().deserialize(curPhoto));
+        photos.push(new PhotoItemModel().deserialize(curPhoto));
       });
     }
 
