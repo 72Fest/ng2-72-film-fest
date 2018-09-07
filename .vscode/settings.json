@@ -4,6 +4,7 @@
     "Deserializable",
     "Injectable",
     "deserialize",
+    "deserializeable",
     "deserialized"
   ]
 }
