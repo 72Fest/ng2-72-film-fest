@@ -18,7 +18,11 @@ import { PhotosModel } from '../../models/photos.model';
 export class PhotosPage {
   photos: PhotoItemModel[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, dm: DataManagerProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private dm: DataManagerProvider
+  ) {
     // retrieve photos
     dm.getPhotos().subscribe((model: PhotosModel) => {
       this.photos = model.message.photos;
@@ -27,5 +31,13 @@ export class PhotosPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhotosPage');
+  }
+
+  doRefresh(refresher) {
+    const photosSubscription = this.dm.getPhotos().subscribe((model: PhotosModel) => {
+      this.photos = model.message.photos;
+      refresher.complete();
+      photosSubscription.unsubscribe();
+    });
   }
 }
