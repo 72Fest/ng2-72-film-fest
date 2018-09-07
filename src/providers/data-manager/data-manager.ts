@@ -9,6 +9,7 @@ const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
 const endpointNews = '/news';
 const endpointTeams = '/teams';
+const endpointPhotos = '/photos';
 
 /*
   Generated class for the DataManagerProvider provider.
@@ -18,10 +19,7 @@ const endpointTeams = '/teams';
 */
 @Injectable()
 export class DataManagerProvider {
-
-  constructor(public http: HttpClient) {
-    console.log('Hello DataManagerProvider Provider');
-  }
+  constructor(public http: HttpClient) {}
 
   /**
    * Retrieve current countdown value from api endpoint
@@ -40,7 +38,8 @@ export class DataManagerProvider {
   getNews(): Observable<NewsModel> {
     const url = `${baseApiUrl}${endpointNews}`;
 
-    return this.http.get<NewsModel>(url)
+    return this.http
+      .get<NewsModel>(url)
       .map((model: NewsModel) => new NewsModel().deserialize(model));
   }
 
@@ -51,7 +50,8 @@ export class DataManagerProvider {
   getTeams(): Observable<TeamsModel> {
     const url = `${baseApiUrl}${endpointTeams}`;
 
-    return this.http.get<TeamsModel>(url)
+    return this.http
+      .get<TeamsModel>(url)
       .map((model: TeamsModel) => new TeamsModel().deserialize(model));
   }
 }
