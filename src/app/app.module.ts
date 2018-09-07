@@ -20,12 +20,31 @@ import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { TeamDetailsPage } from '../pages/team-details/team-details';
 import { FilmPage } from '../pages/film/film';
 import { PhotosPage } from '../pages/photos/photos';
+import { PhotoCardPage } from '../pages/photo-card/photo-card';
 
 @NgModule({
-  declarations: [MyApp, HomePage, ListPage, TeamsPage, TeamDetailsPage, FilmPage, PhotosPage],
+  declarations: [
+    MyApp,
+    HomePage,
+    ListPage,
+    TeamsPage,
+    TeamDetailsPage,
+    FilmPage,
+    PhotosPage,
+    PhotoCardPage
+  ],
   imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule, ComponentsModule],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, ListPage, TeamsPage, TeamDetailsPage, FilmPage, PhotosPage],
+  entryComponents: [
+    MyApp,
+    HomePage,
+    ListPage,
+    TeamsPage,
+    TeamDetailsPage,
+    FilmPage,
+    PhotosPage,
+    PhotoCardPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,
