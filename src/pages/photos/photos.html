@@ -9,4 +9,8 @@
 
 <ion-content padding>
 
+  <h2>TODO</h2>
+  <div *ngFor="let curPhoto of photos">
+    <img src="{{curPhoto.photoUrl}}" alt="">
+  </div>
 </ion-content>
