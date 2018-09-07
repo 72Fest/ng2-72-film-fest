@@ -5,12 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import { NewsModel } from '../../models/news.model';
 import { TeamsModel } from '../../models/teams.model';
 import { PhotosModel } from '../../models/photos.model';
+import { VotesModel } from '../../models/votes.model';
+import { VoteItemModel } from '../../models/vote-item.model';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
 const endpointNews = '/news';
 const endpointTeams = '/teams';
 const endpointPhotos = '/photos';
+const endpointVotes = '/votes';
 
 /*
   Generated class for the DataManagerProvider provider.
@@ -57,14 +60,41 @@ export class DataManagerProvider {
   }
 
   /**
+   * Retrieve list of current vote values for photos
+   * @returns Observable<VotesModel> model with deserialized values for votes
+   */
+  getVotes(): Observable<VotesModel> {
+    const url = `${baseApiUrl}${endpointVotes}`;
+
+    return this.http
+      .get<VotesModel>(url)
+      .map((model: VotesModel) => new VotesModel().deserialize(model));
+  }
+
+  /**
    * Retrieve list of photos and metadata
    * @returns Observable<PhotosModel> model with deserialized photo values
    */
   getPhotos(): Observable<PhotosModel> {
     const url = `${baseApiUrl}${endpointPhotos}`;
+    const voteHash = {};
 
-    return this.http
+    // retrieve votes and generate an internal hash of the results
+    const votesObservable: Observable<VoteItemModel> = this.getVotes()
+      .flatMap((model: VotesModel): VoteItemModel[] => model.message)
+      .do((vote: VoteItemModel) => (voteHash[vote.id] = vote.votes))
+      .ignoreElements();
+
+    // retrieve photos and map votes
+    const photosObservable: Observable<PhotosModel> = this.http
       .get<PhotosModel>(url)
-      .map((model: PhotosModel) => new PhotosModel().deserialize(model));
+      .map((model: PhotosModel) => {
+        // save computed votes hash
+        model.message.votesHash = voteHash;
+
+        return new PhotosModel().deserialize(model);
+      });
+
+    return <Observable<PhotosModel>>Observable.concat(votesObservable, photosObservable);
   }
 }
