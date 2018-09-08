@@ -77,24 +77,32 @@ export class DataManagerProvider {
    */
   getPhotos(): Observable<PhotosModel> {
     const url = `${baseApiUrl}${endpointPhotos}`;
-    const voteHash = {};
-
-    // retrieve votes and generate an internal hash of the results
-    const votesObservable: Observable<VoteItemModel> = this.getVotes()
-      .flatMap((model: VotesModel): VoteItemModel[] => model.message)
-      .do((vote: VoteItemModel) => (voteHash[vote.id] = vote.votes))
-      .ignoreElements();
-
-    // retrieve photos and map votes
-    const photosObservable: Observable<PhotosModel> = this.http
-      .get<PhotosModel>(url)
-      .map((model: PhotosModel) => {
+    const mapVotesHash = (acc, curr) => {
+      const obj = acc || {};
+      obj[curr.id] = curr.votes;
+      return obj;
+    };
+    const genPhotoObservable = hash => {
+      // now with the
+      return this.http.get<PhotosModel>(url).map((model: PhotosModel) => {
         // save computed votes hash
-        model.message.votesHash = voteHash;
+        model.message.votesHash = hash;
 
         return new PhotosModel().deserialize(model);
       });
+    };
 
-    return <Observable<PhotosModel>>Observable.concat(votesObservable, photosObservable);
+    return (
+      // retrieve votes before getting photos
+      this.getVotes()
+        // gen observable for each VotItemModel
+        .flatMap((model: VotesModel): VoteItemModel[] => model.message)
+        // accumulate votes hash
+        .scan((acc, curr) => mapVotesHash(acc, curr))
+        // emit final hash
+        .last()
+        // pass along votes hash for use in  photos observable
+        .mergeMap(hash => genPhotoObservable(hash))
+    );
   }
 }
