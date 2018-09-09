@@ -30,10 +30,4 @@ export class PhotoCardComponent {
       console.error(`Error while sharing via instagram: ${err}`);
     });
   }
-
-  onTwitter() {
-    this.socialSharing.shareViaTwitter(MESSAGE, this.photo.photoUrl).catch(err => {
-      console.error(`Error while sharing via twitter: ${err}`);
-    });
-  }
 }
