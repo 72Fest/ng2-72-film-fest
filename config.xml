@@ -86,4 +86,5 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="phonegap-plugin-push" spec="^2.2.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
 </widget>
