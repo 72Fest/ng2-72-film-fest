@@ -48,6 +48,9 @@ export class PhotoBuffer {
     this._photosSubscription = this._photos$.last().subscribe(finalVal => {
       // emit the first photo chunk to the subject
       const chunk = this._photoChunks.shift();
+      if (chunk) {
+        this._bufferedPhotos.concat(chunk);
+      }
       this._subject$.next(chunk);
 
       // we no long need this subscription
@@ -60,12 +63,18 @@ export class PhotoBuffer {
   }
 
   fetchNext() {
-    this._subject$.next(this._photoChunks.shift());
+    const nextChunk: PhotoItemModel[] = this._photoChunks.shift();
+
+    if (nextChunk) {
+      this._bufferedPhotos.concat(nextChunk);
+    }
+    this._subject$.next(nextChunk);
 
     return this._subjectResults$.toPromise();
   }
 
   destroy() {
+    this._bufferedPhotos = [];
     if (this._photosSubscription) {
       this._photosSubscription.unsubscribe();
     }
