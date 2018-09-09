@@ -7,6 +7,8 @@ import { TeamsModel } from '../../models/teams.model';
 import { PhotosModel } from '../../models/photos.model';
 import { VotesModel } from '../../models/votes.model';
 import { VoteItemModel } from '../../models/vote-item.model';
+import { PhotoItemModel } from '../../models/photo-item.model';
+import { PhotoBuffer } from '../../helpers/photo-buffer.helper';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
@@ -23,6 +25,8 @@ const endpointVotes = '/votes';
 */
 @Injectable()
 export class DataManagerProvider {
+  private photoBuffer: PhotoBuffer;
+
   constructor(public http: HttpClient) {}
 
   /**
@@ -69,6 +73,41 @@ export class DataManagerProvider {
     return this.http
       .get<VotesModel>(url)
       .map((model: VotesModel) => new VotesModel().deserialize(model));
+  }
+
+  pollPhotos(): Observable<PhotoItemModel[]> {
+    if (this.photoBuffer) {
+      this.photoBuffer.fetchNext();
+
+      return this.photoBuffer.observable;
+    } else {
+      return <Observable<PhotoItemModel[]>>Observable.create(observer => {
+        const photos$ = this.getPhotos().subscribe((model: PhotosModel) => {
+          this.photoBuffer = new PhotoBuffer(model);
+
+          // emit the observable from the photo buffer
+          observer.next(this.photoBuffer.observable);
+
+          photos$.unsubscribe();
+        });
+      })
+        // map nested observable into the source observable
+        .flatMap(inner$ => inner$);
+    }
+  }
+
+  refreshPhotos() {
+    // TODO: perform better cleanup
+    this.photoBuffer.destroy();
+    this.photoBuffer = null;
+  }
+
+  fetchPhotos() {
+    if (!this.photoBuffer) {
+      throw new Error('pollPhotos() must be called before fetchPhotos()');
+    }
+    this.photoBuffer.fetchNext();
+    return this.photoBuffer.observable;
   }
 
   /**
