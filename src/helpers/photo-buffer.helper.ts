@@ -16,6 +16,10 @@ export class PhotoBuffer {
   private _subject$: BehaviorSubject<PhotoItemModel[]>;
   private _subjectResults$: Observable<PhotoItemModel[]>;
 
+  get observable(): Observable<PhotoItemModel[]> {
+    return this._subjectResults$;
+  }
+
   constructor(private photosModel: PhotosModel) {
     // configure subject
     this._subject$ = new BehaviorSubject([]);
@@ -67,5 +71,11 @@ export class PhotoBuffer {
     }
 
     return this._subjectResults$.toPromise();
+  }
+
+  destroy() {
+    if (this._photosSubscription) {
+      this._photosSubscription.unsubscribe();
+    }
   }
 }
