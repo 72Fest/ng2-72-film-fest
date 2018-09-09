@@ -60,15 +60,7 @@ export class PhotoBuffer {
   }
 
   fetchNext() {
-    const nextChunk = this._photoChunks.shift();
-
-    if (nextChunk) {
-      // if there still are chunks emit them
-      this._subject$.next(nextChunk);
-    } else {
-      // otherwise complete the observable
-      this._subject$.complete();
-    }
+    this._subject$.next(this._photoChunks.shift());
 
     return this._subjectResults$.toPromise();
   }
