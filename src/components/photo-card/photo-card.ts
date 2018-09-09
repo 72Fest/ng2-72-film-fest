@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { PhotoItemModel } from '../../models/photo-item.model';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
+const MESSAGE = '#72FilmFest';
 /**
  * Generated class for the PhotoCardComponent component.
  *
@@ -15,5 +17,23 @@ export class PhotoCardComponent {
   @Input()
   photo: PhotoItemModel;
 
-  constructor() {}
+  constructor(private socialSharing: SocialSharing) {}
+
+  onShare() {
+    this.socialSharing.share(MESSAGE, MESSAGE, this.photo.photoUrl).catch(err => {
+      console.error(`Error while sharing: ${err}`);
+    });
+  }
+
+  onInstagram() {
+    this.socialSharing.shareViaInstagram(MESSAGE, this.photo.photoUrl).catch(err => {
+      console.error(`Error while sharing via instagram: ${err}`);
+    });
+  }
+
+  onTwitter() {
+    this.socialSharing.shareViaTwitter(MESSAGE, this.photo.photoUrl).catch(err => {
+      console.error(`Error while sharing via twitter: ${err}`);
+    });
+  }
 }

@@ -15,11 +15,14 @@
     </button>
   </div>
   <div float-right>
-    <button ion-button clear large icon-end>
+    <button (click)="onShare()" ion-button clear large icon-end>
+      <ion-icon name='share-alt'></ion-icon>
+    </button>
+    <button (click)="onInstagram()" ion-button clear large icon-end>
       <ion-icon name='logo-instagram'></ion-icon>
     </button>
-    <button ion-button clear large icon-end>
-      <ion-icon name='share-alt'></ion-icon>
+    <button (click)="onTwitter()" ion-button clear large icon-end>
+      <ion-icon name='logo-twitter'></ion-icon>
     </button>
   </div>
 
