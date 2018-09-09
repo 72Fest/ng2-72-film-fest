@@ -8,20 +8,19 @@
     <p>{{photo.timestampStr}}</p>
   </ion-card-content>
 
-  <ion-row no-padding>
-    <ion-col>
-      <button ion-button clear icon-start>
-        <ion-icon large name='heart'></ion-icon>
-      </button>
-      <ion-badge item-end>{{photo.votes}}</ion-badge>
-    </ion-col>
-    <ion-col text-right>
-      <button ion-button clear large icon-start>
-        <ion-icon name='logo-instagram'></ion-icon>
-      </button>
-      <button ion-button clear large icon-start>
-        <ion-icon name='share-alt'></ion-icon>
-      </button>
-    </ion-col>
-  </ion-row>
+  <div float-left>
+    <button ion-button clear class="vote-container">
+      <ion-icon name='heart' class="vote-icon"></ion-icon>
+      <ion-badge small item-start>{{photo.votes}}</ion-badge>
+    </button>
+  </div>
+  <div float-right>
+    <button ion-button clear large icon-end>
+      <ion-icon name='logo-instagram'></ion-icon>
+    </button>
+    <button ion-button clear large icon-end>
+      <ion-icon name='share-alt'></ion-icon>
+    </button>
+  </div>
+
 </ion-card>
