@@ -11,6 +11,7 @@ import { TeamsPage } from '../pages/teams/teams';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
@@ -34,6 +35,7 @@ import { PhotosPage } from '../pages/photos/photos';
     Camera,
     Push,
     InAppBrowser,
+    SocialSharing,
     DataManagerProvider
   ]
 })
