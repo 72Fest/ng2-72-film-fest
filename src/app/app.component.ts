@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { TeamsPage } from '../pages/teams/teams';
 import { PhotosPage } from '../pages/photos/photos';
 import { ContactPage } from '../pages/contact/contact';
@@ -32,8 +31,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Photos', component: PhotosPage },
       { title: 'Teams', component: TeamsPage },
-      { title: 'Contact', component: ContactPage },
-      { title: 'List', component: ListPage }
+      { title: 'Contact', component: ContactPage }
     ];
   }
 

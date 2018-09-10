@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { TeamsPage } from '../pages/teams/teams';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,28 +23,10 @@ import { PhotosPage } from '../pages/photos/photos';
 import { ContactPage } from '../pages/contact/contact';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    TeamsPage,
-    TeamDetailsPage,
-    FilmPage,
-    PhotosPage,
-    ContactPage
-  ],
+  declarations: [MyApp, HomePage, TeamsPage, TeamDetailsPage, FilmPage, PhotosPage, ContactPage],
   imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule, ComponentsModule],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    TeamsPage,
-    TeamDetailsPage,
-    FilmPage,
-    PhotosPage,
-    ContactPage
-  ],
+  entryComponents: [MyApp, HomePage, TeamsPage, TeamDetailsPage, FilmPage, PhotosPage, ContactPage],
   providers: [
     StatusBar,
     SplashScreen,
