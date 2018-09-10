@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { PhotoItemModel } from '../../models/photo-item.model';
-import { PhotosModel } from '../../models/photos.model';
 import { Subscription } from 'rxjs';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the PhotosPage page.
@@ -20,11 +20,18 @@ export class PhotosPage {
   photos: PhotoItemModel[];
 
   private _subscription$: Subscription;
+  private _defaultOptions: CameraOptions = {
+    quality: 90,
+    allowEdit: true,
+    saveToPhotoAlbum: true,
+    correctOrientation: true
+  };
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dm: DataManagerProvider
+    private dm: DataManagerProvider,
+    private camera: Camera
   ) {
     // retrieve photos
     this.pollPhotos();
@@ -44,6 +51,43 @@ export class PhotosPage {
       err => console.error(`Error while polling photos: ${err}`),
       () => console.log('FINISHED FEED!')
     );
+  }
+
+  captureImage(isUsingCamera: boolean) {
+    // configure options
+    const options: CameraOptions = Object.assign(
+      {
+        saveToPhotoAlbum: isUsingCamera,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        //set source type to retrieve photo from camera
+        sourceType: isUsingCamera
+          ? this.camera.PictureSourceType.CAMERA
+          : this.camera.PictureSourceType.PHOTOLIBRARY
+      },
+      this._defaultOptions
+    );
+
+    // capture a photo
+    this.camera.getPicture(options).then(
+      imageData => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64 (DATA_URL):
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+      },
+      err => {
+        // Handle error
+        console.error(`Failed when capturing image: ${err}`);
+      }
+    );
+  }
+
+  onCamera() {
+    this.captureImage(true);
+  }
+
+  onAlbums() {
+    this.captureImage(false);
   }
 
   doRefresh(refresher) {
