@@ -11,6 +11,7 @@ export class PhotoItemModel implements Deserializable {
   isFilmHour: boolean;
   filmHour: boolean;
   votes: number = 0;
+  isVoted: boolean = false;
 
   private _updateTimestampStr(): void {
     if (this.timestamp) {
