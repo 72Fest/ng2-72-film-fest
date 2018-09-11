@@ -16,6 +16,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
 import { Push } from '@ionic-native/push';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AppPreferences } from '@ionic-native/app-preferences';
+
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { TeamDetailsPage } from '../pages/team-details/team-details';
 import { FilmPage } from '../pages/film/film';
@@ -36,7 +38,8 @@ import { ContactPage } from '../pages/contact/contact';
     Push,
     InAppBrowser,
     SocialSharing,
-    DataManagerProvider
+    DataManagerProvider,
+    AppPreferences
   ]
 })
 export class AppModule {}
