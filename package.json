@@ -20,6 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/app-preferences": "^4.12.2",
     "@ionic-native/camera": "^4.12.2",
     "@ionic-native/core": "~4.12.0",
     "@ionic-native/file-transfer": "^4.12.2",
