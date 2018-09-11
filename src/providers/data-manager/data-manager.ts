@@ -25,6 +25,10 @@ const endpointVotes = '/votes';
 */
 @Injectable()
 export class DataManagerProvider {
+  public CONSTANTS = {
+    APP_DICT_KEY: '72FestVotesDict'
+  };
+
   private photoBuffer: PhotoBuffer;
 
   constructor(public http: HttpClient) {}
