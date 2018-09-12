@@ -14,7 +14,7 @@
   </ion-refresher>
 
   <div *ngFor="let curPhoto of photos">
-    <app-photo-card [photo]="curPhoto"></app-photo-card>
+    <app-photo-card (voteToggled)="onVoteToggled($event)" [photo]="curPhoto"></app-photo-card>
   </div>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

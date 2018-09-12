@@ -4,6 +4,7 @@ import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { PhotoItemModel } from '../../models/photo-item.model';
 import { Subscription } from 'rxjs';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { VoteModel } from '../../models/vote.model';
 
 /**
  * Generated class for the PhotosPage page.
@@ -80,6 +81,17 @@ export class PhotosPage {
         console.error(`Failed when capturing image: ${err}`);
       }
     );
+  }
+
+  onVoteToggled(photo: PhotoItemModel) {
+    this.dm.castVote(photo.id, photo.isVoted).subscribe((model: VoteModel) => {
+      // update current photos list with new model
+      this.photos.forEach((curPhoto: PhotoItemModel) => {
+        if (curPhoto.id === photo.id) {
+          curPhoto.deserialize(model.message);
+        }
+      });
+    });
   }
 
   onCamera() {
