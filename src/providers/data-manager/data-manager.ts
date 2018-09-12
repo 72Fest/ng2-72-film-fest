@@ -9,12 +9,15 @@ import { VotesModel } from '../../models/votes.model';
 import { VoteItemModel } from '../../models/vote-item.model';
 import { PhotoItemModel } from '../../models/photo-item.model';
 import { PhotoBuffer } from '../../helpers/photo-buffer.helper';
+import { VoteModel } from '../../models/vote.model';
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
 const endpointNews = '/news';
 const endpointTeams = '/teams';
 const endpointPhotos = '/photos';
+const endpointVote = '/vote';
 const endpointVotes = '/votes';
 
 /*
@@ -31,7 +34,7 @@ export class DataManagerProvider {
 
   private photoBuffer: PhotoBuffer;
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient, private appPreferences: AppPreferences) {}
 
   /**
    * Retrieve current countdown value from api endpoint
@@ -77,6 +80,44 @@ export class DataManagerProvider {
     return this.http
       .get<VotesModel>(url)
       .map((model: VotesModel) => new VotesModel().deserialize(model));
+  }
+
+  /**
+   * Updates vote for a given photo id
+   * @param photoId string unique id of photo
+   * @param isLiked boolean vote status
+   */
+  castVote(photoId: string, isLiked: boolean): Observable<VoteModel> {
+    const url = `${baseApiUrl}${endpointVote}`;
+    const postData = {
+      id: photoId,
+      unlike: !isLiked
+    };
+    let preferencesPromise = null;
+
+    // given the vote status, either store or remove an element from
+    // app preferences
+    preferencesPromise = isLiked
+      ? this.appPreferences.store(this.CONSTANTS.APP_DICT_KEY, photoId, isLiked)
+      : this.appPreferences.remove(this.CONSTANTS.APP_DICT_KEY, photoId);
+
+    // handle callbacks from promise
+    preferencesPromise = preferencesPromise.then(results => results).catch(err => {
+      // we are ignoring failure for testing on desktop
+      // maybe this isn't smart?
+      console.log('app preference error', err);
+      return Promise.resolve();
+    });
+
+    // create post request observable to vote
+    const voteResponse$: Observable<VoteModel> = this.http
+      .post(url, postData)
+      .map((model: VoteModel) => new VoteModel().deserialize(model));
+
+    // update the app preferences and then return the vote
+    return <Observable<VoteModel>>Observable.fromPromise(preferencesPromise)
+      .ignoreElements()
+      .concat(voteResponse$);
   }
 
   pollPhotos(): Observable<PhotoItemModel[]> {
