@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PhotoItemModel } from '../../models/photo-item.model';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -16,6 +16,9 @@ const MESSAGE = '#72FilmFest';
 export class PhotoCardComponent {
   @Input()
   photo: PhotoItemModel;
+
+  @Output()
+  voteToggled = new EventEmitter<PhotoItemModel>();
 
   constructor(private socialSharing: SocialSharing) {}
 
