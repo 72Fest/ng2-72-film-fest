@@ -19,6 +19,11 @@ export class PhotoCardComponent {
 
   constructor(private socialSharing: SocialSharing) {}
 
+  toggleVote() {
+    this.photo.isVoted = !this.photo.isVoted;
+    this.voteToggled.emit(this.photo);
+  }
+
   onShare() {
     this.socialSharing.share(MESSAGE, MESSAGE, this.photo.photoUrl).catch(err => {
       console.error(`Error while sharing: ${err}`);
