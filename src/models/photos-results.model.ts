@@ -20,9 +20,10 @@ export class PhotosResultsModel implements Deserializable {
       input.photos.forEach((curPhoto: PhotoItemModel) => {
         const newPhoto: PhotoItemModel = new PhotoItemModel().deserialize(curPhoto);
 
-        // update vote total if photo is in votes hash
+        // update vote total and vote state if photo is in votes hash
         if (this.votesHash && this.votesHash[newPhoto.id]) {
-          newPhoto.votes = this.votesHash[newPhoto.id];
+          newPhoto.votes = this.votesHash[newPhoto.id].votes;
+          newPhoto.isVoted = this.votesHash[newPhoto.id].voted;
         }
         photos.push(newPhoto);
       });

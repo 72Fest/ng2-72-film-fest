@@ -71,15 +71,49 @@ export class DataManagerProvider {
   }
 
   /**
-   * Retrieve list of current vote values for photos
-   * @returns Observable<VotesModel> model with deserialized values for votes
+   * Retrieves state from app preferences and updates the vote items
+   * @param votes VoteItemModel[] array of votes
+   * @returns Observable<VoteItemModel> emits votes array an element at a time
    */
-  getVotes(): Observable<VotesModel> {
-    const url = `${baseApiUrl}${endpointVotes}`;
+  _getVoteStates(votes: VoteItemModel[]): Observable<VoteItemModel> {
+    const checkPrefs = (vote: VoteItemModel): Promise<VoteItemModel[]> => {
+      return this.appPreferences
+        .fetch(this.CONSTANTS.APP_DICT_KEY, vote.id)
+        .then(results => {
+          // if vote state is found, update state in vote model
+          vote.voted = results ? true : false;
 
-    return this.http
-      .get<VotesModel>(url)
-      .map((model: VotesModel) => new VotesModel().deserialize(model));
+          return votes;
+        })
+        .catch(err => {
+          // ignore errors
+          return Promise.resolve(votes);
+        });
+    };
+
+    // retrieve all local vote states
+    const prom = votes.reduce((prevPromise: Promise<any>, curVote: VoteItemModel) => {
+      return prevPromise.then(() => {
+        return checkPrefs(curVote);
+      });
+    }, Promise.resolve());
+
+    return Observable.fromPromise(prom).flatMap(result => Observable.from(result));
+  }
+
+  /**
+   * Retrieve list of current vote values for photos
+   * @returns Observable<VoteItemModel> model with deserialized values for votes
+   */
+  getVotes(): Observable<VoteItemModel> {
+    const url = `${baseApiUrl}${endpointVotes}`;
+    const processVoteStates = (model: VotesModel): Observable<VoteItemModel> => {
+      const newModel = new VotesModel().deserialize(model);
+
+      return this._getVoteStates(newModel.message);
+    };
+
+    return this.http.get<VotesModel>(url).flatMap((model: VotesModel) => processVoteStates(model));
   }
 
   /**
@@ -161,9 +195,9 @@ export class DataManagerProvider {
    */
   getPhotos(): Observable<PhotosModel> {
     const url = `${baseApiUrl}${endpointPhotos}`;
-    const mapVotesHash = (acc, curr) => {
+    const mapVotesHash = (acc, curr: VoteItemModel) => {
       const obj = acc || {};
-      obj[curr.id] = curr.votes;
+      obj[curr.id] = curr;
       return obj;
     };
     const genPhotoObservable = hash => {
@@ -179,8 +213,6 @@ export class DataManagerProvider {
     return (
       // retrieve votes before getting photos
       this.getVotes()
-        // gen observable for each VotItemModel
-        .flatMap((model: VotesModel): VoteItemModel[] => model.message)
         // accumulate votes hash
         .scan((acc, curr) => mapVotesHash(acc, curr))
         // emit final hash
