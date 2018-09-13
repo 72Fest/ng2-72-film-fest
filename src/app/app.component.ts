@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { TeamsPage } from '../pages/teams/teams';
 import { PhotosPage } from '../pages/photos/photos';
 import { ContactPage } from '../pages/contact/contact';
+import { SponsorsPage } from '../pages/sponsors/sponsors';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,6 +32,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Photos', component: PhotosPage },
       { title: 'Teams', component: TeamsPage },
+      { title: 'Sponsors', component: SponsorsPage },
       { title: 'Contact', component: ContactPage }
     ];
   }
