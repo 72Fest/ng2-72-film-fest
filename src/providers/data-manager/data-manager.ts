@@ -71,11 +71,11 @@ export class DataManagerProvider {
   }
 
   /**
-   * Retrieves state from app preferences and updates the vote items
+   * A helper function that retrieves state from app preferences and updates the vote items
    * @param votes VoteItemModel[] array of votes
    * @returns Observable<VoteItemModel> emits votes array an element at a time
    */
-  _getVoteStates(votes: VoteItemModel[]): Observable<VoteItemModel> {
+  private _getVoteStates(votes: VoteItemModel[]): Observable<VoteItemModel> {
     const checkPrefs = (vote: VoteItemModel): Promise<VoteItemModel[]> => {
       return this.appPreferences
         .fetch(this.CONSTANTS.APP_DICT_KEY, vote.id)
@@ -154,6 +154,10 @@ export class DataManagerProvider {
       .concat(voteResponse$);
   }
 
+  /**
+   * Retrieve an incremental list of photos, the observable is update when fetchPhotos() is called
+   * @returns Observable<PhotoItemModel[]> and array chunk of photo items
+   */
   pollPhotos(): Observable<PhotoItemModel[]> {
     if (this.photoBuffer) {
       this.photoBuffer.fetchNext();
@@ -161,7 +165,7 @@ export class DataManagerProvider {
       return this.photoBuffer.observable;
     } else {
       return <Observable<PhotoItemModel[]>>Observable.create(observer => {
-        const photos$ = this.getPhotos().subscribe((model: PhotosModel) => {
+        const photos$ = this._getPhotos().subscribe((model: PhotosModel) => {
           this.photoBuffer = new PhotoBuffer(model);
 
           // emit the observable from the photo buffer
@@ -175,12 +179,19 @@ export class DataManagerProvider {
     }
   }
 
+  /**
+   * Cleanly terminates existing variables to re init the photo buffer
+   */
   refreshPhotos() {
     // TODO: perform better cleanup
     this.photoBuffer.destroy();
     this.photoBuffer = null;
   }
 
+  /**
+   * Trigger observable called from `pollPhotos()` to retrieve the next chunk of photos
+   * @returns
+   */
   fetchPhotos() {
     if (!this.photoBuffer) {
       throw new Error('pollPhotos() must be called before fetchPhotos()');
@@ -193,7 +204,7 @@ export class DataManagerProvider {
    * Retrieve list of photos and metadata
    * @returns Observable<PhotosModel> model with deserialized photo values
    */
-  getPhotos(): Observable<PhotosModel> {
+  private _getPhotos(): Observable<PhotosModel> {
     const url = `${baseApiUrl}${endpointPhotos}`;
     const mapVotesHash = (acc, curr: VoteItemModel) => {
       const obj = acc || {};
@@ -201,7 +212,6 @@ export class DataManagerProvider {
       return obj;
     };
     const genPhotoObservable = hash => {
-      // now with the
       return this.http.get<PhotosModel>(url).map((model: PhotosModel) => {
         // save computed votes hash
         model.message.votesHash = hash;
@@ -217,7 +227,7 @@ export class DataManagerProvider {
         .scan((acc, curr) => mapVotesHash(acc, curr))
         // emit final hash
         .last()
-        // pass along votes hash for use in  photos observable
+        // pass along votes hash for use in photos observable
         .mergeMap(hash => genPhotoObservable(hash))
     );
   }
