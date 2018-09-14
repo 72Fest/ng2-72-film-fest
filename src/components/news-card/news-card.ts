@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NewsItemModel } from '../../models/news-item.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the NewsCardComponent component.
@@ -12,7 +13,8 @@ import { NewsItemModel } from '../../models/news-item.model';
   templateUrl: 'news-card.html'
 })
 export class NewsCardComponent {
-  @Input() newsItem: NewsItemModel;
+  @Input()
+  newsItem: NewsItemModel;
 
-  constructor() { }
+  constructor(public sanitizer: DomSanitizer) {}
 }

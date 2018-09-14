@@ -6,7 +6,7 @@
   </ion-item>
 
   <ion-card-content>
-    <p [innerHTML]="newsItem.content"></p>
+    <p [innerHTML]="sanitizer.bypassSecurityTrustHtml(newsItem.content)"></p>
   </ion-card-content>
 
   <ion-row>

@@ -24,9 +24,13 @@ const updateMarkdownLinks = nodes => {
   return nodes;
 };
 const processMd = content => {
+  // create a json map of the markdown
   let tree = markdown.parse(content);
+  // we need to update all links to include some javascript that will open
+  // links into a new window
   tree = updateMarkdownLinks(tree);
 
+  // render the object map to HTML and return the results
   return markdown.renderJsonML(markdown.toHTMLTree(tree));
 };
 
