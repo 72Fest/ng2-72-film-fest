@@ -2,7 +2,7 @@ import { PhotosModel } from '../models/photos.model';
 import { PhotoItemModel } from '../models/photo-item.model';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 
-const BUFFER_CHUNKS = 10;
+const BUFFER_CHUNKS = 5;
 
 export class PhotoBuffer {
   // initialized values
