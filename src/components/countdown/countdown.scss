@@ -1,7 +1,6 @@
 @import '../../theme/variables';
 
-countdown {
-}
+$header-text-clr: #fff;
 
 .countdown-container {
   background-color: map-get($colors, primary);
@@ -10,6 +9,8 @@ countdown {
   .countdown-title {
     text-align: center;
     font-size: 2.4rem;
+    font-family: $custom-header-font;
+    color: $header-text-clr;
   }
 
   .countdown-digits {
@@ -23,7 +24,7 @@ countdown {
   }
 
   .countdown-digit-label {
-
+    color: $header-text-clr;
   }
 
   .countdown-digit-val {
