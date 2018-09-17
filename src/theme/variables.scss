@@ -5,25 +5,12 @@
 // roboto, and noto sans fonts
 $font-path: '../assets/fonts';
 
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 
-
-@import "ionic.globals";
-
-
-// Shared Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass variables found in Ionic's source scss files.
-// To view all the possible Ionic variables, see:
-// http://ionicframework.com/docs/theming/overriding-ionic-variables/
-
-
-
+@import 'ionic.globals';
 
 // Named Color Variables
 // --------------------------------------------------
@@ -33,37 +20,40 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 $custom-base-clr: #e9a621;
-$custom-header-font: amatic-sc;
+$custom-header-font: amatic-sc-bold;
+$custom-label-font: amatic-sc-regular;
+$custom-body-font: oswald-light;
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  primary: $custom-base-clr,
+  secondary: #32db64,
+  danger: #f53d3d,
+  light: #f4f4f4,
+  dark: #222
 );
 
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+$font-size-root: 85%;
+$toolbar-background: $custom-base-clr;
+$h2-font-size: 3rem;
+$font-family-base: $custom-body-font;
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-
-
-
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
-
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
-
 
 // App Theme
 // --------------------------------------------------
@@ -72,16 +62,14 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-@import "ionic.theme.default";
-
+@import 'ionic.theme.default';
 
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
 
-@import "ionic.ionicons";
-
+@import 'ionic.ionicons';
 
 // Fonts
 // --------------------------------------------------
@@ -100,4 +88,9 @@ $colors: (
 @font-face {
   font-family: 'amatic-sc-bold';
   src: url('../assets/fonts/amatic-sc-bold.ttf');
+}
+
+@font-face {
+  font-family: 'oswald-light';
+  src: url('../assets/fonts/oswald-light.ttf');
 }
