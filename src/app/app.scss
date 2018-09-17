@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +13,32 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.toolbar-title {
+  font-family: $custom-header-font;
+  font-size: 1.8em;
+}
+
+.scroll-content {
+  background-color: #ebebeb;
+}
+
+.menu-label {
+  font-family: $custom-label-font;
+  font-size: 1.8em;
+  color: #5a5a5a;
+}
+
+h2 {
+  font-family: $custom-header-font;
+  font-weight: 100;
+  color: $custom-base-clr !important;
+  font-size: 2.8rem !important;
+}
+
+h3 {
+  font-family: $custom-header-font;
+  font-weight: 100;
+  color: $custom-base-clr !important;
+  font-size: 2.6rem !important;
+}
