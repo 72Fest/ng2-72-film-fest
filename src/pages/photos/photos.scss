@@ -1,3 +1,23 @@
+$container-size: 115px;
 page-photos {
+  .camera-container {
+    position: fixed;
+    text-align: center;
+    background-color: map-get($colors, primary);
+    bottom: -($container-size/2);
+    left: 50%;
+    margin-left: -($container-size/2);
+    width: $container-size;
+    height: $container-size;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 1000;
+    border: 1px solid map-get($colors, primary);
+  }
 
+  .camera-container-icon {
+    margin-top: $container-size / 8;
+    font-size: 3.2rem;
+    color: #fff;
+  }
 }
