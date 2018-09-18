@@ -49,19 +49,21 @@ export class PhotosPage {
       buttons: [
         {
           text: 'Photo albums',
+          icon: 'albums',
           handler: () => {
             this.captureImage(false);
           }
         },
         {
           text: 'Camera',
+          icon: 'camera',
           handler: () => {
             this.captureImage(true);
           }
         },
         {
           text: 'Cancel',
-          role: 'destructive',
+          role: 'cancel',
           handler: () => {
             console.log('Cancel was pressed from camera action sheet');
           }
