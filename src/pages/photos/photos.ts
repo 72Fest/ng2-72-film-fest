@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { PhotoItemModel } from '../../models/photo-item.model';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,8 @@ export class PhotosPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private dm: DataManagerProvider,
-    private camera: Camera
+    private camera: Camera,
+    private actionSheetCtrl: ActionSheetController
   ) {
     // retrieve photos
     this.pollPhotos();
@@ -40,6 +41,35 @@ export class PhotosPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhotosPage');
+  }
+
+  presentActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Upload a photo',
+      buttons: [
+        {
+          text: 'Photo albums',
+          handler: () => {
+            this.captureImage(false);
+          }
+        },
+        {
+          text: 'Camera',
+          handler: () => {
+            this.captureImage(true);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'destructive',
+          handler: () => {
+            console.log('Cancel was pressed from camera action sheet');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
 
   pollPhotos() {
@@ -95,11 +125,7 @@ export class PhotosPage {
   }
 
   onCamera() {
-    this.captureImage(true);
-  }
-
-  onAlbums() {
-    this.captureImage(false);
+    this.presentActionSheet();
   }
 
   doRefresh(refresher) {

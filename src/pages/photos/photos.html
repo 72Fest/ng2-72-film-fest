@@ -22,23 +22,6 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-<div class="camera-container">
+<div (click)="onCamera()" class="camera-container">
   <ion-icon class="camera-container-icon" large name='camera'></ion-icon>
 </div>
-
-<!-- <ion-footer>
-
-
-  <div float-left>
-    <button (click)="onCamera()" ion-button clear large icon-only>
-      <ion-icon name='camera'></ion-icon>
-    </button>
-  </div>
-  <div float-right>
-    <button (click)="onAlbums()" ion-button clear large icon-only>
-      <ion-icon name='albums'></ion-icon>
-    </button>
-  </div>
-
-
-</ion-footer> -->
