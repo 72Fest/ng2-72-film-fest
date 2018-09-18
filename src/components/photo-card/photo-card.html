@@ -1,11 +1,8 @@
 <ion-card>
-  <ion-card-header>
-    Card Header
-  </ion-card-header>
-
   <img src="{{photo.photoUrl}}" alt="">
-  <ion-card-content no-padding>
+  <ion-card-content class="photo-labels-content" no-padding>
     <p class="photo-timestamp">{{photo.timestampStr}}</p>
+    <div class="photo-hour-label">X hours left</div>
   </ion-card-content>
 
   <div float-left>

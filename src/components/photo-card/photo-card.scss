@@ -9,3 +9,13 @@
 .photo-timestamp {
   padding: 8px 0px 0px 15px;
 }
+
+.photo-labels-content {
+  position: relative;
+}
+
+.photo-hour-label {
+  position: absolute;
+  top: 8px;
+  right: 15px;
+}
