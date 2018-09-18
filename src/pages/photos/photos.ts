@@ -48,17 +48,17 @@ export class PhotosPage {
       title: 'Upload a photo',
       buttons: [
         {
-          text: 'Photo albums',
-          icon: 'albums',
-          handler: () => {
-            this.captureImage(false);
-          }
-        },
-        {
           text: 'Camera',
           icon: 'camera',
           handler: () => {
             this.captureImage(true);
+          }
+        },
+        {
+          text: 'Photo albums',
+          icon: 'albums',
+          handler: () => {
+            this.captureImage(false);
           }
         },
         {
