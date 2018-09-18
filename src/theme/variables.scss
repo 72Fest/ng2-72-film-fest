@@ -22,7 +22,7 @@ $app-direction: ltr;
 $custom-base-clr: #e9a621;
 $custom-header-font: amatic-sc-bold;
 $custom-label-font: amatic-sc-regular;
-$custom-body-font: oswald-light;
+$custom-body-font: ubuntu-light;
 
 $colors: (
   primary: $custom-base-clr,
@@ -99,8 +99,8 @@ $card-ios-margin-right: 0px;
 }
 
 @font-face {
-  font-family: 'oswald-light';
-  src: url('../assets/fonts/oswald-light.ttf');
+  font-family: 'ubuntu-light';
+  src: url('../assets/fonts/ubuntu-light.ttf');
 }
 @font-face {
   font-family: 'clock-face';
