@@ -184,7 +184,9 @@ export class DataManagerProvider {
    */
   refreshPhotos() {
     // TODO: perform better cleanup
+    if (this.photoBuffer) {
     this.photoBuffer.destroy();
+    }
     this.photoBuffer = null;
   }
 
