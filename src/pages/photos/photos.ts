@@ -105,8 +105,17 @@ export class PhotosPage {
     this.camera.getPicture(options).then(
       imageData => {
         // imageData is either a base64 encoded string or a file URI
-        // If it's base64 (DATA_URL):
-        let base64Image = 'data:image/jpeg;base64,' + imageData;
+        let imageUrl = null;
+
+        if (imageData.match(/^file:\/\//)) {
+          // if file is a URI, do nothing
+          imageUrl = imageData;
+        } else {
+          // If it's base64 (DATA_URL), prepend with content type
+          imageUrl = 'data:image/jpeg;base64,' + imageData;
+        }
+
+        this.dm.uploadPhoto(imageUrl);
       },
       err => {
         // Handle error

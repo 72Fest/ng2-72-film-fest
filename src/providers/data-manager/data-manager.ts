@@ -11,6 +11,13 @@ import { PhotoItemModel } from '../../models/photo-item.model';
 import { PhotoBuffer } from '../../helpers/photo-buffer.helper';
 import { VoteModel } from '../../models/vote.model';
 import { AppPreferences } from '@ionic-native/app-preferences';
+import {
+  FileTransfer,
+  FileUploadOptions,
+  FileTransferObject,
+  FileUploadResult,
+  FileTransferError
+} from '@ionic-native/file-transfer';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
@@ -19,6 +26,7 @@ const endpointTeams = '/teams';
 const endpointPhotos = '/photos';
 const endpointVote = '/vote';
 const endpointVotes = '/votes';
+const endpointUpload = '/upload';
 
 /*
   Generated class for the DataManagerProvider provider.
@@ -34,7 +42,11 @@ export class DataManagerProvider {
 
   private photoBuffer: PhotoBuffer;
 
-  constructor(public http: HttpClient, private appPreferences: AppPreferences) {}
+  constructor(
+    public http: HttpClient,
+    private appPreferences: AppPreferences,
+    private transfer: FileTransfer
+  ) {}
 
   /**
    * Retrieve current countdown value from api endpoint
@@ -200,6 +212,27 @@ export class DataManagerProvider {
     }
     this.photoBuffer.fetchNext();
     return this.photoBuffer.observable;
+  }
+
+  /**
+   * Uploads a photo to the server
+   * @param imageData file URI or data URI for photo to upload
+   */
+  uploadPhoto(imageData: string) {
+    const url = `${baseApiUrl}${endpointUpload}`;
+    const options: FileUploadOptions = {};
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    fileTransfer.upload(imageData, url, options).then(
+      (data: FileUploadResult) => {
+        // success
+        console.log('upload succeeded', JSON.stringify(data));
+      },
+      (err: FileTransferError) => {
+        // error
+        console.log('upload failed', err);
+      }
+    );
   }
 
   /**
