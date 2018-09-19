@@ -101,9 +101,8 @@ export class PhotosPage {
       this._defaultOptions
     );
 
-    // capture a photo
-    this.camera.getPicture(options).then(
-      imageData => {
+    // process image returned from camera or photo album
+    const processImageData = imageData => {
         // imageData is either a base64 encoded string or a file URI
         let imageUrl = null;
 
@@ -115,13 +114,27 @@ export class PhotosPage {
           imageUrl = 'data:image/jpeg;base64,' + imageData;
         }
 
-        this.dm.uploadPhoto(imageUrl);
-      },
-      err => {
+      return imageUrl;
+    };
+
+    // upload image after it is retrieved from the camera or album
+    const uploadImageData = imageUrl => {
+      return this.uploadPhoto(imageUrl);
+    };
+
+    // capture a photo
+    return this.camera
+      .getPicture(options)
+      .then(processImageData)
+      .then(imageData => uploadImageData(imageData))
+      .catch(err => {
         // Handle error
         console.error(`Failed when capturing image: ${err}`);
+      });
       }
-    );
+
+  uploadPhoto(imageUrl: string) {
+    this.dm.uploadPhoto(imageUrl);
   }
 
   onVoteToggled(photo: PhotoItemModel) {
