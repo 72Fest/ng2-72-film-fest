@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { PhotoItemModel } from '../../models/photo-item.model';
 import { Subscription } from 'rxjs';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VoteModel } from '../../models/vote.model';
+import { FileUploadResult, FileTransferError } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the PhotosPage page.
@@ -33,7 +34,8 @@ export class PhotosPage {
     public navParams: NavParams,
     private dm: DataManagerProvider,
     private camera: Camera,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    public loadingCtrl: LoadingController
   ) {
     // retrieve photos
     this.pollPhotos();
@@ -134,7 +136,21 @@ export class PhotosPage {
   }
 
   uploadPhoto(imageUrl: string) {
-    this.dm.uploadPhoto(imageUrl);
+    const loader = this.loadingCtrl.create({
+      content: 'uploading'
+    });
+    loader.present();
+
+    this.dm
+      .uploadPhoto(imageUrl)
+      .then((result: FileUploadResult) => {
+        console.log('We are good for camera');
+        loader.dismiss();
+      })
+      .catch((err: FileTransferError) => {
+        console.log('FAIL!');
+        loader.dismiss();
+      });
   }
 
   onVoteToggled(photo: PhotoItemModel) {
@@ -158,7 +174,6 @@ export class PhotosPage {
     }
 
     refresher.complete();
-    this.dm.refreshPhotos();
     this.pollPhotos();
   }
 

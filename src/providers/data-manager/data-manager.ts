@@ -210,14 +210,18 @@ export class DataManagerProvider {
     const options: FileUploadOptions = {};
     const fileTransfer: FileTransferObject = this.transfer.create();
 
-    fileTransfer.upload(imageData, url, options).then(
+    return fileTransfer.upload(imageData, url, options).then(
       (data: FileUploadResult) => {
         // success
         console.log('upload succeeded', JSON.stringify(data));
+
+        return data;
       },
       (err: FileTransferError) => {
         // error
         console.log('upload failed', err);
+
+        return err;
       }
     );
   }
