@@ -8,7 +8,7 @@ import {
 } from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { PhotoItemModel } from '../../models/photo-item.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VoteModel } from '../../models/vote.model';
 import { FileUploadResult, FileTransferError } from '@ionic-native/file-transfer';
@@ -84,7 +84,27 @@ export class PhotosPage {
   }
 
   pollPhotos() {
-    this._subscription$ = this.dm.pollPhotos().subscribe(
+    // retrieve latest images observable
+    const pollPhotos$ = this.dm.pollPhotos();
+    // create a new observable that updates the timestamp
+    const timestampUpdate$ = pollPhotos$.switchMap((models: PhotoItemModel[]) => {
+      const TIMESTAMP_UPDATE_INTERVAL = 4500;
+      return Observable.interval(TIMESTAMP_UPDATE_INTERVAL)
+        .mapTo(models)
+        .map((models: PhotoItemModel[]) => {
+          if (models && Array.isArray(models)) {
+            models.forEach((model: PhotoItemModel) => {
+              // update model data (triggers timestamp update)
+              model.deserialize(model);
+            });
+          }
+          return models;
+        });
+    });
+
+    // merge both observables to retrieve photos and update their timestamps
+    // TODO: unsubscribe from this when not needed
+    Observable.merge(pollPhotos$, timestampUpdate$).subscribe(
       (models: PhotoItemModel[]) => {
         if (models) {
           this.photos = models;
