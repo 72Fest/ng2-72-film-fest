@@ -21,6 +21,10 @@ export class PhotoBuffer {
   }
 
   constructor(private photosModel: PhotosModel) {
+    this.initModel(photosModel);
+  }
+
+  initModel(model: PhotosModel) {
     // configure subject
     this._subject$ = new BehaviorSubject([]);
     this._subjectResults$ = this._subject$.scan(
@@ -36,8 +40,8 @@ export class PhotoBuffer {
     );
 
     // chunk photos
-    this._allPhotos = photosModel.message.photos;
-    this._photos$ = Observable.of(photosModel)
+    this._allPhotos = model.message.photos;
+    this._photos$ = Observable.of(model)
       .flatMap(model => model.message.photos)
       .bufferCount(BUFFER_CHUNKS)
       .do((curChunk: PhotoItemModel[]) => {
