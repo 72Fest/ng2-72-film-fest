@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
+import {
+  NavController,
+  NavParams,
+  ActionSheetController,
+  LoadingController,
+  AlertController
+} from 'ionic-angular';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { PhotoItemModel } from '../../models/photo-item.model';
 import { Subscription } from 'rxjs';
@@ -35,7 +41,8 @@ export class PhotosPage {
     private dm: DataManagerProvider,
     private camera: Camera,
     private actionSheetCtrl: ActionSheetController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
   ) {
     // retrieve photos
     this.pollPhotos();
@@ -144,12 +151,21 @@ export class PhotosPage {
     this.dm
       .uploadPhoto(imageUrl)
       .then((result: FileUploadResult) => {
-        console.log('We are good for camera');
+        // we were successful so poll for the latest photos
+        this.pollPhotos();
         loader.dismiss();
       })
       .catch((err: FileTransferError) => {
-        console.log('FAIL!');
         loader.dismiss();
+
+        // alert user that an error ocurred
+        const alert = this.alertCtrl.create({
+          title: 'Upload failed!',
+          message: 'An error ocurred when attempting to upload the image',
+          buttons: ['Dismiss']
+        });
+
+        alert.present();
       });
   }
 
