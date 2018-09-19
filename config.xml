@@ -4,8 +4,8 @@
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
-    <allow-navigation href="http://*.72fest.com/*" />
-    <allow-navigation href="https://*.72fest.com/*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
