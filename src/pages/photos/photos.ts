@@ -103,16 +103,16 @@ export class PhotosPage {
 
     // process image returned from camera or photo album
     const processImageData = imageData => {
-        // imageData is either a base64 encoded string or a file URI
-        let imageUrl = null;
+      // imageData is either a base64 encoded string or a file URI
+      let imageUrl = null;
 
-        if (imageData.match(/^file:\/\//)) {
-          // if file is a URI, do nothing
-          imageUrl = imageData;
-        } else {
-          // If it's base64 (DATA_URL), prepend with content type
-          imageUrl = 'data:image/jpeg;base64,' + imageData;
-        }
+      if (imageData.match(/^file:\/\//)) {
+        // if file is a URI, do nothing
+        imageUrl = imageData;
+      } else {
+        // If it's base64 (DATA_URL), prepend with content type
+        imageUrl = 'data:image/jpeg;base64,' + imageData;
+      }
 
       return imageUrl;
     };
@@ -131,7 +131,7 @@ export class PhotosPage {
         // Handle error
         console.error(`Failed when capturing image: ${err}`);
       });
-      }
+  }
 
   uploadPhoto(imageUrl: string) {
     this.dm.uploadPhoto(imageUrl);

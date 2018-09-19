@@ -172,10 +172,9 @@ export class DataManagerProvider {
    */
   pollPhotos(): Observable<PhotoItemModel[]> {
     if (this.photoBuffer) {
-      this.photoBuffer.fetchNext();
+      this.photoBuffer.destroy();
+    }
 
-      return this.photoBuffer.observable;
-    } else {
       return <Observable<PhotoItemModel[]>>Observable.create(observer => {
         const photos$ = this._getPhotos().subscribe((model: PhotosModel) => {
           this.photoBuffer = new PhotoBuffer(model);
@@ -189,18 +188,6 @@ export class DataManagerProvider {
         // map nested observable into the source observable
         .flatMap(inner$ => inner$);
     }
-  }
-
-  /**
-   * Cleanly terminates existing variables to re init the photo buffer
-   */
-  refreshPhotos() {
-    // TODO: perform better cleanup
-    if (this.photoBuffer) {
-    this.photoBuffer.destroy();
-    }
-    this.photoBuffer = null;
-  }
 
   /**
    * Trigger observable called from `pollPhotos()` to retrieve the next chunk of photos
