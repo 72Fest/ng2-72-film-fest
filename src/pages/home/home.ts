@@ -33,4 +33,10 @@ export class HomePage {
   updateCountdown() {
     return this.dm.getCountdown().flatMap((model: CountdownModel) => Observable.of(model.message));
   }
+
+  doRefresh(refresher) {
+    Observable.zip(this.getNews(), this.updateCountdown())
+      .toPromise()
+      .then(() => console.log('does this work?'));
+  }
 }
