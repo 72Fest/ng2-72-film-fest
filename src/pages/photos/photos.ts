@@ -13,6 +13,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VoteModel } from '../../models/vote.model';
 import { FileUploadResult, FileTransferError } from '@ionic-native/file-transfer';
 
+// interval to update timestamps for photos
+const TIMESTAMP_INTERVAL = 30000;
+
 /**
  * Generated class for the PhotosPage page.
  *
@@ -28,6 +31,7 @@ export class PhotosPage implements OnDestroy {
   photos: PhotoItemModel[];
 
   private _subscription$: Subscription;
+  private _timestamps$: Subscription;
   private _defaultOptions: CameraOptions = {
     quality: 90,
     allowEdit: true,
@@ -86,31 +90,39 @@ export class PhotosPage implements OnDestroy {
   pollPhotos() {
     // retrieve latest images observable
     const pollPhotos$ = this.dm.pollPhotos();
-    // create a new observable that updates the timestamp
-    const timestampUpdate$ = pollPhotos$.switchMap((models: PhotoItemModel[]) => {
-      const TIMESTAMP_UPDATE_INTERVAL = 3000;
-      return Observable.interval(TIMESTAMP_UPDATE_INTERVAL)
-        .mapTo(models)
-        .map((models: PhotoItemModel[]) => {
-          if (models && Array.isArray(models)) {
-            models.forEach((model: PhotoItemModel) => {
-              // update model data (triggers timestamp update)
-              model.deserialize(model);
-            });
-          }
-          return models;
-        });
-    });
 
-    // in case it is already defined, unsubscribe before reassigning
+    // create a new observable that updates the timestamp
+    const interval$ = pollPhotos$.switchMap((models: PhotoItemModel[]) =>
+      Observable.interval(TIMESTAMP_INTERVAL).mapTo(models)
+    );
+
+    // in case they are already defined, unsubscribe before reassigning
     if (this._subscription$) {
       this._subscription$.unsubscribe();
     }
 
-    // merge both observables to retrieve photos and update their timestamps
-    this._subscription$ = Observable.merge(pollPhotos$, timestampUpdate$).subscribe(
+    if (this._timestamps$) {
+      this._timestamps$.unsubscribe();
+    }
+
+    // subscribe to update photos
+    this._subscription$ = pollPhotos$.subscribe(
       (models: PhotoItemModel[]) => {
         this.photos = models || [];
+      },
+      err => console.error(`Error while polling photos: ${err}`)
+    );
+
+    // subscribe to update photo timestamps
+    this._timestamps$ = interval$.subscribe(
+      (models: PhotoItemModel[]) => {
+        console.log('so we are updating then?');
+        if (this.photos && Array.isArray(this.photos)) {
+          this.photos.forEach((photo: PhotoItemModel) => {
+            // update model data (triggers timestamp update)
+            photo.deserialize(photo);
+          });
+        }
       },
       err => console.error(`Error while polling photos: ${err}`)
     );
@@ -225,6 +237,10 @@ export class PhotosPage implements OnDestroy {
   ngOnDestroy(): void {
     if (this._subscription$) {
       this._subscription$.unsubscribe();
+    }
+
+    if (this._timestamps$) {
+      this._timestamps$.unsubscribe();
     }
   }
 }
