@@ -7,14 +7,23 @@
   </ion-navbar>
 </ion-header>
 
+<ng-template #loading>
+  <div class="loading-text">
+    <h2>Loading ...</h2>
+    <ion-spinner name="circles"></ion-spinner>
+  </div>
+</ng-template>
+
 <ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="Pull to refresh" refreshingText="Retrieving photos ...">
     </ion-refresher-content>
   </ion-refresher>
 
-  <div *ngFor="let curPhoto of photos">
-    <app-photo-card (voteToggled)="onVoteToggled($event)" [photo]="curPhoto"></app-photo-card>
+  <div *ngIf="photos else loading">
+    <div *ngFor="let curPhoto of photos">
+      <app-photo-card (voteToggled)="onVoteToggled($event)" [photo]="curPhoto"></app-photo-card>
+    </div>
   </div>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
