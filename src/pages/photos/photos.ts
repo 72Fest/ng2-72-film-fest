@@ -76,10 +76,7 @@ export class PhotosPage implements OnDestroy {
         },
         {
           text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel was pressed from camera action sheet');
-          }
+          role: 'cancel'
         }
       ]
     });
@@ -116,7 +113,6 @@ export class PhotosPage implements OnDestroy {
     // subscribe to update photo timestamps
     this._timestamps$ = interval$.subscribe(
       (models: PhotoItemModel[]) => {
-        console.log('so we are updating then?');
         if (this.photos && Array.isArray(this.photos)) {
           this.photos.forEach((photo: PhotoItemModel) => {
             // update model data (triggers timestamp update)
@@ -223,7 +219,6 @@ export class PhotosPage implements OnDestroy {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('doing the infinite');
     const sub$ = this.dm.fetchPhotos().subscribe(photos => {
       // if subscription comes back undefined, we have no more photos
       infiniteScroll.enable(photos ? true : false);
