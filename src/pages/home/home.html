@@ -7,8 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <app-countdown [title]="curTitle" [timestamp]="curTimestamp"></app-countdown>
+<ion-content padding *ngIf="countdown$ | async as countdown">
+  <app-countdown [title]="countdown.caption" [timestamp]="countdown.time"></app-countdown>
 
-  <app-news-card *ngFor="let curNewsItem of newsItems" [newsItem]="curNewsItem"></app-news-card>
+  <app-news-card *ngFor="let curNewsItem of newsItems$ | async" [newsItem]="curNewsItem"></app-news-card>
 </ion-content>
