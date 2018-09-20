@@ -89,9 +89,7 @@ export class PhotosPage implements OnDestroy {
     const pollPhotos$ = this.dm.pollPhotos();
 
     // create a new observable that updates the timestamp
-    const interval$ = pollPhotos$.switchMap((models: PhotoItemModel[]) =>
-      Observable.interval(TIMESTAMP_INTERVAL).mapTo(models)
-    );
+    const interval$ = Observable.interval(TIMESTAMP_INTERVAL);
 
     // in case they are already defined, unsubscribe before reassigning
     if (this._subscription$) {
@@ -112,11 +110,12 @@ export class PhotosPage implements OnDestroy {
 
     // subscribe to update photo timestamps
     this._timestamps$ = interval$.subscribe(
-      (models: PhotoItemModel[]) => {
+      () => {
         if (this.photos && Array.isArray(this.photos)) {
           this.photos.forEach((photo: PhotoItemModel) => {
             // update model data (triggers timestamp update)
             photo.deserialize(photo);
+            // photo.timestamp = photo.timestamp;
           });
         }
       },
