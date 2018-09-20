@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   NavController,
   NavParams,
@@ -24,7 +24,7 @@ import { FileUploadResult, FileTransferError } from '@ionic-native/file-transfer
   selector: 'page-photos',
   templateUrl: 'photos.html'
 })
-export class PhotosPage {
+export class PhotosPage implements OnDestroy {
   photos: PhotoItemModel[];
 
   private _subscription$: Subscription;
@@ -88,7 +88,7 @@ export class PhotosPage {
     const pollPhotos$ = this.dm.pollPhotos();
     // create a new observable that updates the timestamp
     const timestampUpdate$ = pollPhotos$.switchMap((models: PhotoItemModel[]) => {
-      const TIMESTAMP_UPDATE_INTERVAL = 4500;
+      const TIMESTAMP_UPDATE_INTERVAL = 3000;
       return Observable.interval(TIMESTAMP_UPDATE_INTERVAL)
         .mapTo(models)
         .map((models: PhotoItemModel[]) => {
@@ -102,16 +102,17 @@ export class PhotosPage {
         });
     });
 
+    // in case it is already defined, unsubscribe before reassigning
+    if (this._subscription$) {
+      this._subscription$.unsubscribe();
+    }
+
     // merge both observables to retrieve photos and update their timestamps
-    // TODO: unsubscribe from this when not needed
-    Observable.merge(pollPhotos$, timestampUpdate$).subscribe(
+    this._subscription$ = Observable.merge(pollPhotos$, timestampUpdate$).subscribe(
       (models: PhotoItemModel[]) => {
-        if (models) {
-          this.photos = models;
-        }
+        this.photos = models || [];
       },
-      err => console.error(`Error while polling photos: ${err}`),
-      () => console.log('FINISHED FEED!')
+      err => console.error(`Error while polling photos: ${err}`)
     );
   }
 
@@ -205,15 +206,12 @@ export class PhotosPage {
   }
 
   doRefresh(refresher) {
-    if (this._subscription$) {
-      this._subscription$.unsubscribe();
-    }
-
     refresher.complete();
     this.pollPhotos();
   }
 
   doInfinite(infiniteScroll) {
+    console.log('doing the infinite');
     const sub$ = this.dm.fetchPhotos().subscribe(photos => {
       // if subscription comes back undefined, we have no more photos
       infiniteScroll.enable(photos ? true : false);
@@ -222,5 +220,11 @@ export class PhotosPage {
       infiniteScroll.complete();
     });
     // sub$.unsubscribe();
+  }
+
+  ngOnDestroy(): void {
+    if (this._subscription$) {
+      this._subscription$.unsubscribe();
+    }
   }
 }
