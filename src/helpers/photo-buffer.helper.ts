@@ -10,7 +10,6 @@ export class PhotoBuffer {
   private _photoChunks: PhotoItemModel[][] = [];
 
   // instance variables
-  private _allPhotos: PhotoItemModel[];
   private _photos$: Observable<PhotoItemModel[]>;
   private _photosSubscription: Subscription;
   private _subject$: BehaviorSubject<PhotoItemModel[]>;
@@ -20,7 +19,7 @@ export class PhotoBuffer {
     return this._subjectResults$;
   }
 
-  constructor(private photosModel: PhotosModel) {
+  constructor(photosModel: PhotosModel) {
     this.initModel(photosModel);
   }
 
@@ -40,7 +39,6 @@ export class PhotoBuffer {
     );
 
     // chunk photos
-    this._allPhotos = model.message.photos;
     this._photos$ = Observable.of(model)
       .flatMap(model => model.message.photos)
       .bufferCount(BUFFER_CHUNKS)

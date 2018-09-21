@@ -218,14 +218,13 @@ export class PhotosPage implements OnDestroy {
   }
 
   doInfinite(infiniteScroll) {
-    const sub$ = this.dm.fetchPhotos().subscribe(photos => {
+    this.dm.fetchPhotos().subscribe(photos => {
       // if subscription comes back undefined, we have no more photos
       infiniteScroll.enable(photos ? true : false);
 
       // notify infinite scroll of completion
       infiniteScroll.complete();
     });
-    // sub$.unsubscribe();
   }
 
   ngOnDestroy(): void {
