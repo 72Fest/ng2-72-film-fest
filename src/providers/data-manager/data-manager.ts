@@ -39,7 +39,8 @@ const endpointRegister = '/register';
 @Injectable()
 export class DataManagerProvider {
   public CONSTANTS = {
-    APP_DICT_KEY: '72FestVotesDict'
+    APP_DICT_KEY: '72FestVotesDict',
+    PUSH_TOKEN_KEY: 'deviceToken'
   };
 
   private photoBuffer: PhotoBuffer;
@@ -302,17 +303,35 @@ export class DataManagerProvider {
           //results:
           // registration.registrationId
           // registration.registrationType
-          console.log('registration.registrationId', registration.registrationId);
-          this.submitToken(registration.registrationId, registration.registrationType).subscribe(
+          const tokenId = registration.registrationId;
+          this.appPreferences
+            .fetch(this.CONSTANTS.APP_DICT_KEY, this.CONSTANTS.PUSH_TOKEN_KEY)
+            .then(result => {
+              // we already have a token so don't submit it again
+              if (result && result === tokenId) {
+                console.log('Token is already stored, skipping registration');
+                resolve(pushObj);
+
+                return;
+              }
+
+              // submit token to register with SNS endpoint
+              this.submitToken(
+                registration.registrationId,
+                registration.registrationType
+              ).subscribe(
             results => {
-              console.log('registration results', JSON.stringify(results));
-              resolve(pushObj);
+                  // store token locally then resolve promise
+                  this.appPreferences
+                    .store(this.CONSTANTS.APP_DICT_KEY, this.CONSTANTS.PUSH_TOKEN_KEY, tokenId)
+                    .then(() => resolve(pushObj));
             },
             error => {
               console.log('registration error', error);
               reject(error);
             }
           );
+        });
         });
 
         pushObj.on('error').subscribe((error: any) => {
