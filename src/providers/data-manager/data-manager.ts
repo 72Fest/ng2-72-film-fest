@@ -341,7 +341,10 @@ export class DataManagerProvider {
       };
 
       // check if permission is granted for push notifications
-      this.push.hasPermission().then(handler);
+      this.push
+        .hasPermission()
+        .then(handler)
+        .catch(err => console.log('error while checking push permissions', err));
     });
   }
 }
