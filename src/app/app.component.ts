@@ -8,6 +8,8 @@ import { TeamsPage } from '../pages/teams/teams';
 import { PhotosPage } from '../pages/photos/photos';
 import { ContactPage } from '../pages/contact/contact';
 import { SponsorsPage } from '../pages/sponsors/sponsors';
+import { DataManagerProvider } from '../providers/data-manager/data-manager';
+import { PushObject } from '@ionic-native/push';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +25,8 @@ export class MyApp {
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public datManager: DataManagerProvider
   ) {
     this.initializeApp();
 
@@ -43,6 +46,17 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.datManager.initPush().then(
+        (pushObj: PushObject) => {
+          pushObj.on('notification').subscribe((notification: any) => {
+            // results: {"additionalData":{"foreground":true,"coldstart":false},"message":"...","title":"...","sound":"default"}
+            console.log('push notification', JSON.stringify(notification));
+          });
+        },
+        error => {
+          console.log('error', error);
+        }
+      );
     });
   }
 
