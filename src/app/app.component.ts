@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -26,6 +26,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public alertCtrl: AlertController,
     public datManager: DataManagerProvider
   ) {
     this.initializeApp();
@@ -50,7 +51,15 @@ export class MyApp {
         (pushObj: PushObject) => {
           pushObj.on('notification').subscribe((notification: any) => {
             // results: {"additionalData":{"foreground":true,"coldstart":false},"message":"...","title":"...","sound":"default"}
-            console.log('push notification', JSON.stringify(notification));
+
+            const alertOptions = {
+              title: notification.title || undefined,
+              subTitle: notification.message || undefined,
+              buttons: ['OK']
+            };
+
+            // show alert
+            this.alertCtrl.create(alertOptions).present();
           });
         },
         error => {
