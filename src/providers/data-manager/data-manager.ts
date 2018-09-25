@@ -179,19 +179,19 @@ export class DataManagerProvider {
       this.photoBuffer.destroy();
     }
 
-      return <Observable<PhotoItemModel[]>>Observable.create(observer => {
-        const photos$ = this._getPhotos().subscribe((model: PhotosModel) => {
-          this.photoBuffer = new PhotoBuffer(model);
+    return <Observable<PhotoItemModel[]>>Observable.create(observer => {
+      const photos$ = this._getPhotos().subscribe((model: PhotosModel) => {
+        this.photoBuffer = new PhotoBuffer(model);
 
-          // emit the observable from the photo buffer
-          observer.next(this.photoBuffer.observable);
+        // emit the observable from the photo buffer
+        observer.next(this.photoBuffer.observable);
 
-          photos$.unsubscribe();
-        });
-      })
-        // map nested observable into the source observable
-        .flatMap(inner$ => inner$);
-    }
+        photos$.unsubscribe();
+      });
+    })
+      // map nested observable into the source observable
+      .flatMap(inner$ => inner$);
+  }
 
   /**
    * Trigger observable called from `pollPhotos()` to retrieve the next chunk of photos
@@ -320,18 +320,18 @@ export class DataManagerProvider {
                 registration.registrationId,
                 registration.registrationType
               ).subscribe(
-            results => {
+                results => {
                   // store token locally then resolve promise
                   this.appPreferences
                     .store(this.CONSTANTS.APP_DICT_KEY, this.CONSTANTS.PUSH_TOKEN_KEY, tokenId)
                     .then(() => resolve(pushObj));
-            },
-            error => {
-              console.log('registration error', error);
-              reject(error);
-            }
-          );
-        });
+                },
+                error => {
+                  console.log('registration error', error);
+                  reject(error);
+                }
+              );
+            });
         });
 
         pushObj.on('error').subscribe((error: any) => {
