@@ -18,6 +18,7 @@ import {
   FileUploadResult,
   FileTransferError
 } from '@ionic-native/file-transfer';
+import { Push, PushOptions, PushObject } from '@ionic-native/push';
 
 const baseApiUrl = 'https://api.72fest.com/api';
 const endpointCountdown = '/countDown';
@@ -27,6 +28,7 @@ const endpointPhotos = '/photos';
 const endpointVote = '/vote';
 const endpointVotes = '/votes';
 const endpointUpload = '/upload';
+const endpointRegister = '/register';
 
 /*
   Generated class for the DataManagerProvider provider.
@@ -37,7 +39,8 @@ const endpointUpload = '/upload';
 @Injectable()
 export class DataManagerProvider {
   public CONSTANTS = {
-    APP_DICT_KEY: '72FestVotesDict'
+    APP_DICT_KEY: '72FestVotesDict',
+    PUSH_TOKEN_KEY: 'deviceToken'
   };
 
   private photoBuffer: PhotoBuffer;
@@ -45,7 +48,8 @@ export class DataManagerProvider {
   constructor(
     public http: HttpClient,
     private appPreferences: AppPreferences,
-    private transfer: FileTransfer
+    private transfer: FileTransfer,
+    private push: Push
   ) {}
 
   /**
@@ -175,19 +179,19 @@ export class DataManagerProvider {
       this.photoBuffer.destroy();
     }
 
-      return <Observable<PhotoItemModel[]>>Observable.create(observer => {
-        const photos$ = this._getPhotos().subscribe((model: PhotosModel) => {
-          this.photoBuffer = new PhotoBuffer(model);
+    return <Observable<PhotoItemModel[]>>Observable.create(observer => {
+      const photos$ = this._getPhotos().subscribe((model: PhotosModel) => {
+        this.photoBuffer = new PhotoBuffer(model);
 
-          // emit the observable from the photo buffer
-          observer.next(this.photoBuffer.observable);
+        // emit the observable from the photo buffer
+        observer.next(this.photoBuffer.observable);
 
-          photos$.unsubscribe();
-        });
-      })
-        // map nested observable into the source observable
-        .flatMap(inner$ => inner$);
-    }
+        photos$.unsubscribe();
+      });
+    })
+      // map nested observable into the source observable
+      .flatMap(inner$ => inner$);
+  }
 
   /**
    * Trigger observable called from `pollPhotos()` to retrieve the next chunk of photos
@@ -256,5 +260,91 @@ export class DataManagerProvider {
         // pass along votes hash for use in photos observable
         .mergeMap(hash => genPhotoObservable(hash))
     );
+  }
+
+  /**
+   * Sends token to back end, which in turn subscribes to the proper topic
+   * @param tokenId string token return from the push service
+   * @param platform string push notification platform (APNS or FCM)
+   */
+  submitToken(tokenId: string, platform: string) {
+    const url = `${baseApiUrl}${endpointRegister}`;
+    const postData = {
+      tokenId,
+      platform
+    };
+
+    return this.http.post(url, postData);
+  }
+
+  /**
+   * Initializes the push notification service which includes asking for
+   * permission to receive notifications and registering the device token
+   * @returns Promise<PushObject> the resulting PushObject or error object
+   */
+  initPush(): Promise<PushObject> {
+    const pushOptions: PushOptions = {
+      ios: {
+        alert: true,
+        badge: true,
+        sound: true
+      }
+    };
+
+    return new Promise((resolve, reject) => {
+      const handler = (result: any) => {
+        if (!result || !result.isEnabled) {
+          console.error('Push notifications are not enabled');
+        }
+
+        const pushObj: PushObject = this.push.init(pushOptions);
+
+        pushObj.on('registration').subscribe((registration: any) => {
+          //results:
+          // registration.registrationId
+          // registration.registrationType
+          const tokenId = registration.registrationId;
+          this.appPreferences
+            .fetch(this.CONSTANTS.APP_DICT_KEY, this.CONSTANTS.PUSH_TOKEN_KEY)
+            .then(result => {
+              // we already have a token so don't submit it again
+              if (result && result === tokenId) {
+                console.log('Token is already stored, skipping registration');
+                resolve(pushObj);
+
+                return;
+              }
+
+              // submit token to register with SNS endpoint
+              this.submitToken(
+                registration.registrationId,
+                registration.registrationType
+              ).subscribe(
+                results => {
+                  // store token locally then resolve promise
+                  this.appPreferences
+                    .store(this.CONSTANTS.APP_DICT_KEY, this.CONSTANTS.PUSH_TOKEN_KEY, tokenId)
+                    .then(() => resolve(pushObj));
+                },
+                error => {
+                  console.log('registration error', error);
+                  reject(error);
+                }
+              );
+            });
+        });
+
+        pushObj.on('error').subscribe((error: any) => {
+          console.log('push error', error);
+          reject(error);
+        });
+      };
+
+      // check if permission is granted for push notifications
+      this.push
+        .hasPermission()
+        .then(handler)
+        .catch(err => console.log('error while checking push permissions', err));
+    });
   }
 }

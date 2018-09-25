@@ -13,6 +13,7 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+$secondary-body-text-clr: #5a5a5a;
 
 .toolbar-title {
   font-family: $custom-header-font;
@@ -26,7 +27,29 @@
 .menu-label {
   font-family: $custom-label-font;
   font-size: 1.8em;
-  color: #5a5a5a;
+  color: $secondary-body-text-clr;
+}
+
+.card-md p,
+.card-ios p {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 1.7em;
+}
+
+ion-card img {
+  margin-bottom: 6px;
+}
+
+.alert-title {
+  font-family: $custom-label-font;
+  font-size: 1.5em !important;
+}
+
+.alert-sub-title {
+  font-family: $custom-body-font;
+  color: $secondary-body-text-clr !important;
+  font-size: 1em !important;
 }
 
 h2 {

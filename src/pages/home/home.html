@@ -7,13 +7,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding *ngIf="countdown$ | async as countdown">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Retrieving photos ...">
-    </ion-refresher-content>
-  </ion-refresher>
+<ion-content padding>
 
-  <app-countdown [title]="countdown.caption" [timestamp]="countdown.time"></app-countdown>
+  <div *ngIf="countdown$ | async as countdown">
+    <app-countdown [title]="countdown.caption" [timestamp]="countdown.time"></app-countdown>
+  </div>
 
   <app-news-card *ngFor="let curNewsItem of newsItems$ | async" [newsItem]="curNewsItem"></app-news-card>
 </ion-content>
