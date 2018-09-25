@@ -288,6 +288,10 @@ export class DataManagerProvider {
         alert: true,
         badge: true,
         sound: true
+      },
+      android: {
+        sound: true,
+        vibrate: true
       }
     };
 
