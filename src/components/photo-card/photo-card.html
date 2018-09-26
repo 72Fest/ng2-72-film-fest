@@ -2,7 +2,7 @@
   <img src="{{photo.photoUrl}}" alt="">
   <ion-card-content class="photo-labels-content" no-padding>
     <p class="photo-timestamp">{{photo.timestampStr}}</p>
-    <div class="photo-hour-label">X hours left</div>
+    <!-- <div class="photo-hour-label">X hours left</div> -->
   </ion-card-content>
 
   <div float-left>
@@ -11,7 +11,7 @@
       <ion-badge small item-start>{{photo.votes}}</ion-badge>
     </button>
   </div>
-  <div float-right>
+  <div float-right class="photo-share-buttons">
     <button (click)="onShare()" ion-button clear icon-only>
       <ion-icon name='share-alt'></ion-icon>
     </button>
