@@ -70,6 +70,8 @@
     <string>CDVLaunchScreen</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>This app requires photo library access to function properly.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>This app uses the camera to take pictures that can be uploaded to the 72 Film Fest gallery.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>This app requires photo library access to function properly.</string>
     <key>UIBackgroundModes</key>
