@@ -34,7 +34,7 @@ export class PhotosPage implements OnDestroy {
   private _timestamps$: Subscription;
   private _defaultOptions: CameraOptions = {
     quality: 90,
-    allowEdit: true,
+    allowEdit: false,
     saveToPhotoAlbum: true,
     correctOrientation: true
   };
