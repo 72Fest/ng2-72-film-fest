@@ -8,6 +8,7 @@
 
 .photo-timestamp {
   padding: 8px 0px 0px 15px;
+  padding-bottom: 0px !important;
 }
 
 .photo-labels-content {
@@ -18,4 +19,24 @@
   position: absolute;
   top: 8px;
   right: 15px;
+}
+
+ion-card img {
+  margin-bottom: 0px;
+}
+
+.photo-share-buttons {
+  margin-right: 10px;
+  .button-md,
+  .button-ios {
+    width: 3.2rem;
+  }
+}
+
+app-photo-card {
+  .button-md,
+  .button-ios {
+    margin-top: 0px !important;
+    margin-bottom: 0px;
+  }
 }
