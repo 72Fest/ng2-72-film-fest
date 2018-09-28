@@ -13,9 +13,10 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Film_Fest_Watch" customModuleProvider="target">
                     <items>
-                        <label width="1" height="96" alignment="center" text="72 Fest" textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
+                        <label width="1" height="86" alignment="center" text="loading ..." textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
                             <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
                         </label>
+                        <separator alignment="left" id="BmQ-6d-359"/>
                         <timer width="136" height="29" alignment="center" textAlignment="center" id="asx-Ce-3Ig">
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                             <calendarUnit key="units" day="YES" hour="YES" minute="YES" second="YES"/>
@@ -27,6 +28,7 @@
                     </connections>
                 </controller>
             </objects>
+            <point key="canvasLocation" x="105" y="1"/>
         </scene>
     </scenes>
 </document>
