@@ -12,6 +12,8 @@
 <ion-content padding>
   <h2>{{film.title}}</h2>
   <p>{{film.year}}</p>
-  <iframe width="320" height="180" [src]="urlSafe" frameborder="0" allowfullscreen></iframe>
+  <div class="video-container">
+    <iframe width="320" height="180" [src]="urlSafe" frameborder="0" allowfullscreen></iframe>
+  </div>
   <button ion-button color="danger" full (click)="dismiss()">Dismiss</button>
 </ion-content>
