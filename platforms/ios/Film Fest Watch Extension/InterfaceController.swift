@@ -15,6 +15,91 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet weak var countdownTimer: WKInterfaceTimer!
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        // Configure interface objects here.
+        let apiEndpoint: String = "https://api.72fest.com/api/countDown"
+        
+        guard let url = URL(string: apiEndpoint) else {
+            print("Error: cannon create URL")
+            return
+        }
+        let urlRequest = URLRequest(url: url)
+        
+        // set up the session
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        // make the request
+        let task = session.dataTask(with: urlRequest) {
+            (data, response, error) in
+            // check for error
+            guard error == nil else {
+                print("error getting countdown")
+                print(error!)
+                return
+            }
+            
+            // make sure we got data
+            guard let responseData = data else {
+                print("Error: did no receive data")
+                return
+            }
+        
+            // parse the result as JSON
+            do {
+                guard let countdownJSON = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    as? [String: Any] else {
+                        print("error trying to convert data to JSON")
+                        return
+                }
+                
+                guard let countdownMsg = countdownJSON["message"] as? [String: Any] else {
+                    print("error trying to convert data to object")
+                    return
+                }
+                
+                guard let countdownCaption = countdownMsg["caption"] as? String else {
+                    print("error when retrieving caption")
+                    return
+                }
+                
+                guard let countdownTime = countdownMsg["time"] as? [String : Any] else {
+                    print ("error trying to get time object")
+                    return
+                }
+                
+                // set label
+                self.countdownLabel.setText(countdownCaption);
+                
+                let timeYear = countdownTime["year"] as? Int;
+                let timeMonth = countdownTime["month"] as? Int;
+                let timeDay = countdownTime["day"] as? Int;
+                let timeHour = countdownTime["hour"] as? Int;
+                let timeMinute = countdownTime["minute"] as? Int;
+                
+                var dateComponent = DateComponents()
+                dateComponent.year = timeYear
+                dateComponent.month = timeMonth
+                dateComponent.day = timeDay
+                dateComponent.hour = timeHour
+                dateComponent.minute = timeMinute
+                dateComponent.second = 0
+                dateComponent.timeZone = TimeZone(abbreviation: "EST")
+                
+                let userCalendar = Calendar.current
+                let countdownDate = userCalendar.date(from: dateComponent)
+                
+                self.countdownTimer.setDate( countdownDate ?? Date())
+                self.countdownTimer.start()
+                
+                print(countdownTime )
+            } catch {
+                print("error trying to conver data to JSON")
+                return
+            }
+        }
+        
+        task.resume()
     }
     
     override func willActivate() {
