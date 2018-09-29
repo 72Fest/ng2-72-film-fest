@@ -1,4 +1,4 @@
-$container-size: 115px;
+$container-size: 125px;
 page-photos {
   .camera-container {
     position: fixed;
@@ -16,8 +16,8 @@ page-photos {
   }
 
   .camera-container-icon {
-    margin-top: $container-size / 8;
-    font-size: 3.2rem;
+    margin-top: $container-size / 16;
+    font-size: 3.7rem;
     color: #fff;
   }
 
