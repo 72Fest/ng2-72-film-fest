@@ -40,6 +40,7 @@ class InterfaceController: WKInterfaceController {
         
         // set up the session
         let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
         let session = URLSession(configuration: config)
         
         // make the request
