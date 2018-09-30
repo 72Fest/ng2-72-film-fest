@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
     </dependencies>
@@ -13,20 +14,18 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Film_Fest_Watch" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="left" spacing="8" id="8Pt-xy-dyn">
-                            <items>
-                                <imageView width="40" height="38" alignment="left" image="watch-logo" id="3dy-67-d3E"/>
-                                <label width="97" height="41" alignment="center" text="..." textAlignment="center" numberOfLines="2" id="wF5-XU-w4f"/>
-                            </items>
-                        </group>
-                        <label width="1" height="56" alignment="center" text="loading ..." textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
+                        <label width="136" height="30" alignment="center" text="..." textAlignment="center" numberOfLines="2" id="wF5-XU-w4f">
+                            <color key="textColor" red="0.9137254901960784" green="0.65098039215686276" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </label>
+                        <label width="1" height="40" alignment="center" text="loading ..." textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                         </label>
-                        <separator alignment="left" id="bEz-Vc-fzW">
-                            <color key="color" red="1" green="0.61230342945433558" blue="0.12685010075444147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <separator alignment="center" id="bEz-Vc-fzW">
+                            <color key="color" red="0.9137254901960784" green="0.65098039215686276" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </separator>
-                        <timer width="136" height="33" alignment="center" textAlignment="center" id="asx-Ce-3Ig">
-                            <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
+                        <group width="1" height="10" alignment="left" layout="vertical" spacing="7" id="ewF-cb-9wi"/>
+                        <timer width="1" alignment="center" verticalAlignment="center" textAlignment="center" numberOfLines="2" enabled="YES" id="asx-Ce-3Ig">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
                             <calendarUnit key="units" day="YES" hour="YES" minute="YES" second="YES"/>
                         </timer>
                     </items>
@@ -37,7 +36,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="105" y="-51"/>
+            <point key="canvasLocation" x="105" y="-57"/>
         </scene>
     </scenes>
 </document>
