@@ -19,12 +19,13 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         // TODO: manage and store data in delegate
-        let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        //let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
 
         // Configure custom font
-        let labelFont = "Countdown"
+        let labelFont = "72 Film Fest"
         
-        let customFont = UIFont(name: "Amatic SC", size: 28.0)
+        let customFont = UIFont(name: "Amatic SC", size: 32.0)
+        //let customFontColor = UIColor(red: 233.0, green: 166.0, blue: 33.0, alpha: 0.1)
         let fontAttrs = [NSAttributedString.Key.font : customFont]
         let attrString = NSAttributedString(string: labelFont, attributes: fontAttrs as [NSAttributedString.Key : Any])
         self.logoLabel.setAttributedText(attrString)
@@ -42,6 +43,7 @@ class InterfaceController: WKInterfaceController {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
         let session = URLSession(configuration: config)
+        
         
         // make the request
         let task = session.dataTask(with: urlRequest) {

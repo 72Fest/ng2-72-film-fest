@@ -14,16 +14,15 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Film_Fest_Watch" customModuleProvider="target">
                     <items>
-                        <label width="136" height="30" alignment="center" text="..." textAlignment="center" numberOfLines="2" id="wF5-XU-w4f">
+                        <label width="136" height="27" alignment="center" text="..." textAlignment="center" numberOfLines="2" id="wF5-XU-w4f">
                             <color key="textColor" red="0.9137254901960784" green="0.65098039215686276" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
-                        <label width="1" height="40" alignment="center" text="loading ..." textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
+                        <label width="1" height="40" alignment="center" text="loading ..." textAlignment="center" numberOfLines="2" id="i9Y-jg-F4f">
                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                         </label>
                         <separator alignment="center" id="bEz-Vc-fzW">
                             <color key="color" red="0.9137254901960784" green="0.65098039215686276" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </separator>
-                        <group width="1" height="10" alignment="left" layout="vertical" spacing="7" id="ewF-cb-9wi"/>
                         <timer width="1" alignment="center" verticalAlignment="center" textAlignment="center" numberOfLines="2" enabled="YES" id="asx-Ce-3Ig">
                             <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
                             <calendarUnit key="units" day="YES" hour="YES" minute="YES" second="YES"/>
@@ -36,7 +35,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="105" y="-57"/>
+            <point key="canvasLocation" x="105" y="-58.5"/>
         </scene>
     </scenes>
 </document>
