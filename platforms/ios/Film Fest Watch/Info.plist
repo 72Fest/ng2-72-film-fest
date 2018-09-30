@@ -17,9 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>8.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>8.0.4</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>amatic-sc-regular.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -29,9 +33,5 @@
 	<string>com.lonnygomes.72Fest</string>
 	<key>WKWatchKitApp</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>amatic-sc-regular.ttf</string>
-	</array>
 </dict>
 </plist>
