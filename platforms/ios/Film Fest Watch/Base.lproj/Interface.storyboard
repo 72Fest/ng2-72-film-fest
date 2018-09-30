@@ -13,22 +13,31 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Film_Fest_Watch" customModuleProvider="target">
                     <items>
-                        <label width="1" height="86" alignment="center" text="loading ..." textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
-                            <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
+                        <group width="1" alignment="left" spacing="8" id="8Pt-xy-dyn">
+                            <items>
+                                <imageView width="40" height="38" alignment="left" image="watch-logo" id="3dy-67-d3E"/>
+                                <label width="97" height="41" alignment="center" text="..." textAlignment="center" numberOfLines="2" id="wF5-XU-w4f"/>
+                            </items>
+                        </group>
+                        <label width="1" height="56" alignment="center" text="loading ..." textAlignment="center" numberOfLines="3" id="i9Y-jg-F4f">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                         </label>
-                        <separator alignment="left" id="BmQ-6d-359"/>
-                        <timer width="136" height="29" alignment="center" textAlignment="center" id="asx-Ce-3Ig">
-                            <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                        <separator alignment="left" id="bEz-Vc-fzW">
+                            <color key="color" red="1" green="0.61230342945433558" blue="0.12685010075444147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </separator>
+                        <timer width="136" height="33" alignment="center" textAlignment="center" id="asx-Ce-3Ig">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
                             <calendarUnit key="units" day="YES" hour="YES" minute="YES" second="YES"/>
                         </timer>
                     </items>
                     <connections>
                         <outlet property="countdownLabel" destination="i9Y-jg-F4f" id="H3e-hd-SVl"/>
                         <outlet property="countdownTimer" destination="asx-Ce-3Ig" id="Nh8-gB-1SW"/>
+                        <outlet property="logoLabel" destination="wF5-XU-w4f" id="vVL-qk-Oa3"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="105" y="1"/>
+            <point key="canvasLocation" x="105" y="-51"/>
         </scene>
     </scenes>
 </document>

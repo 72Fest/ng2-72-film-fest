@@ -48,5 +48,9 @@
 	</dict>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>amatic-sc-regular.ttf</string>
+	</array>
 </dict>
 </plist>

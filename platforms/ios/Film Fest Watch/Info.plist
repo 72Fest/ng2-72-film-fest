@@ -29,5 +29,9 @@
 	<string>com.lonnygomes.72Fest</string>
 	<key>WKWatchKitApp</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>amatic-sc-regular.ttf</string>
+	</array>
 </dict>
 </plist>

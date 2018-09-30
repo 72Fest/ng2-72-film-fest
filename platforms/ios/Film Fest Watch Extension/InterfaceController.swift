@@ -13,8 +13,21 @@ class InterfaceController: WKInterfaceController {
 
     @IBOutlet weak var countdownLabel: WKInterfaceLabel!
     @IBOutlet weak var countdownTimer: WKInterfaceTimer!
+    @IBOutlet weak var logoLabel: WKInterfaceLabel!
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        // TODO: manage and store data in delegate
+        let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+
+        // Configure custom font
+        let labelFont = "Countdown"
+        
+        let customFont = UIFont(name: "Amatic SC", size: 28.0)
+        let fontAttrs = [NSAttributedString.Key.font : customFont]
+        let attrString = NSAttributedString(string: labelFont, attributes: fontAttrs as [NSAttributedString.Key : Any])
+        self.logoLabel.setAttributedText(attrString)
         
         // Configure interface objects here.
         let apiEndpoint: String = "https://api.72fest.com/api/countDown"

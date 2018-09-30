@@ -18,6 +18,11 @@
 		076DDEF4215DB82B005DE05E /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076DDEF3215DB82B005DE05E /* ComplicationController.swift */; };
 		076DDEF6215DB82B005DE05E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 076DDEF5215DB82B005DE05E /* Assets.xcassets */; };
 		076DDEFA215DB82B005DE05E /* Film Fest Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 076DDEDE215DB828005DE05E /* Film Fest Watch.app */; };
+		07DF93742160095500E16251 /* watch-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 07DF93722160095500E16251 /* watch-logo.png */; };
+		07DF93752160095500E16251 /* watch-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 07DF93722160095500E16251 /* watch-logo.png */; };
+		07DF93762160095500E16251 /* watch-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 07DF93722160095500E16251 /* watch-logo.png */; };
+		07DF93792160272700E16251 /* amatic-sc-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07DF93782160272700E16251 /* amatic-sc-regular.ttf */; };
+		07DF937A2160272700E16251 /* amatic-sc-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07DF93782160272700E16251 /* amatic-sc-regular.ttf */; };
 		09E49422DC09467683A1BC88 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33085E74E564E99BAFA2168 /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0DECA97FFD35439F91E61DEE /* GCDWebServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03FC4917C647A3AA6E3C28 /* GCDWebServerConnection.m */; };
 		15AB4FE5650C4C8284D7EFDE /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A0768732C045BBA3B46683 /* GCDWebServerRequest.m */; };
@@ -146,6 +151,8 @@
 		076DDEF3215DB82B005DE05E /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		076DDEF5215DB82B005DE05E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		076DDEF7215DB82B005DE05E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07DF93722160095500E16251 /* watch-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "watch-logo.png"; sourceTree = SOURCE_ROOT; };
+		07DF93782160272700E16251 /* amatic-sc-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "amatic-sc-regular.ttf"; path = "www/assets/fonts/amatic-sc-regular.ttf"; sourceTree = SOURCE_ROOT; };
 		096DA496A57445B2ABEB4880 /* NSString+SSURLEncoding.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "NSString+SSURLEncoding.h"; path = "cordova-plugin-x-socialsharing/NSString+SSURLEncoding.h"; sourceTree = "<group>"; };
 		0D702A8EAC0E4089B5C8B208 /* AppPreferences.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = AppPreferences.h; path = "cordova-plugin-app-preferences/AppPreferences.h"; sourceTree = "<group>"; };
 		0F61FDEAE12C4CC3AB12C693 /* CDVIonicKeyboard.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVIonicKeyboard.m; path = "cordova-plugin-ionic-keyboard/CDVIonicKeyboard.m"; sourceTree = "<group>"; };
@@ -352,6 +359,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				07DF93782160272700E16251 /* amatic-sc-regular.ttf */,
+				07DF93722160095500E16251 /* watch-logo.png */,
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* 72 Film Fest-Info.plist */,
@@ -629,7 +638,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07DF93752160095500E16251 /* watch-logo.png in Resources */,
 				076DDEE4215DB82A005DE05E /* Assets.xcassets in Resources */,
+				07DF93792160272700E16251 /* amatic-sc-regular.ttf in Resources */,
 				076DDEE2215DB829005DE05E /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,7 +649,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07DF93762160095500E16251 /* watch-logo.png in Resources */,
 				076DDEF6215DB82B005DE05E /* Assets.xcassets in Resources */,
+				07DF937A2160272700E16251 /* amatic-sc-regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +662,7 @@
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
+				07DF93742160095500E16251 /* watch-logo.png in Resources */,
 				522325E258504DA39065D64C /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -668,7 +682,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "NODEJS_PATH=/usr/local/bin; NVM_NODE_PATH=~/.nvm/versions/node/`nvm version 2>/dev/null`/bin; N_NODE_PATH=`find /usr/local/n/versions/node/* -maxdepth 0 -type d 2>/dev/null | tail -1`/bin; XCODE_NODE_PATH=`xcode-select --print-path`/usr/share/xcs/Node/bin; PATH=$NODEJS_PATH:$NVM_NODE_PATH:$N_NODE_PATH:$XCODE_NODE_PATH:$PATH && node cordova/lib/copy-www-build-step.js";
+			shellScript = "NODEJS_PATH=/usr/local/bin; NVM_NODE_PATH=~/.nvm/versions/node/`nvm version 2>/dev/null`/bin; N_NODE_PATH=`find /usr/local/n/versions/node/* -maxdepth 0 -type d 2>/dev/null | tail -1`/bin; XCODE_NODE_PATH=`xcode-select --print-path`/usr/share/xcs/Node/bin; PATH=$NODEJS_PATH:$NVM_NODE_PATH:$N_NODE_PATH:$XCODE_NODE_PATH:$PATH && node cordova/lib/copy-www-build-step.js\n";
 			showEnvVarsInLog = 0;
 		};
 		F61D428E506D1443D8F0D2FC /* [CP] Check Pods Manifest.lock */ = {
