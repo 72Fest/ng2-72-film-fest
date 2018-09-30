@@ -103,7 +103,10 @@ export class PhotosPage implements OnDestroy {
     // subscribe to update photos
     this._subscription$ = pollPhotos$.subscribe(
       (models: PhotoItemModel[]) => {
-        this.photos = models || [];
+        if (models) {
+          // only update photos there are more models
+          this.photos = models;
+        }
       },
       err => console.error(`Error while polling photos: ${err}`)
     );
