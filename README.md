@@ -35,6 +35,9 @@ open platforms/ios/72\ Film\ Fest.xcworkspace
 - you must install [cocopods](https://cocoapods.org) for the push plugin
   - run `sudo gem install cocopods` to install it on your system
   - next run `pod setup` to sync the pods
+- [Adding customg fonts to Apple Watch](https://www.tech-recipes.com/rx/53710/how-do-i-use-custom-fonts-in-my-apple-watch-app/)
+- you must properly name the app identifiers [Naming of WatchKit app identifiers](https://stackoverflow.com/questions/30203079/watchkit-extension-bundle-identifiers)
+- you must build with [bitcode](https://stackoverflow.com/questions/31088618/impact-of-xcode-build-options-enable-bitcode-yes-no/31207170) as the watch kit extention requiers ist
 
 ## Android notes
 
@@ -45,3 +48,4 @@ open platforms/ios/72\ Film\ Fest.xcworkspace
 ## References
 
 - [Google Play Console](https://developer.android.com/distribute/console/)
+- [Apple Programming Guide for watchOS](https://developer.apple.com/library/archive/documentation/General/Conceptual/WatchKitProgrammingGuide/index.html#//apple_ref/doc/uid/TP40014969-CH8-SW1)
