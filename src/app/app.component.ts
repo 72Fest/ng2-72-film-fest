@@ -8,6 +8,7 @@ import { TeamsPage } from '../pages/teams/teams';
 import { PhotosPage } from '../pages/photos/photos';
 import { ContactPage } from '../pages/contact/contact';
 import { SponsorsPage } from '../pages/sponsors/sponsors';
+import { PrivacyPage } from '../pages/privacy/privacy';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { PushObject } from '@ionic-native/push';
 
@@ -37,7 +38,8 @@ export class MyApp {
       { title: 'Photos', component: PhotosPage },
       { title: 'Teams', component: TeamsPage },
       { title: 'Sponsors', component: SponsorsPage },
-      { title: 'Contact', component: ContactPage }
+      { title: 'Contact', component: ContactPage },
+      { title: 'Privacy', component: PrivacyPage }
     ];
   }
 
