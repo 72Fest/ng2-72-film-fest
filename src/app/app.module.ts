@@ -24,6 +24,7 @@ import { FilmPage } from '../pages/film/film';
 import { PhotosPage } from '../pages/photos/photos';
 import { ContactPage } from '../pages/contact/contact';
 import { SponsorsPage } from '../pages/sponsors/sponsors';
+import { PrivacyPage } from '../pages/privacy/privacy';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SponsorsPage } from '../pages/sponsors/sponsors';
     FilmPage,
     PhotosPage,
     ContactPage,
-    SponsorsPage
+    SponsorsPage,
+    PrivacyPage
   ],
   imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule, ComponentsModule],
   bootstrap: [IonicApp],
@@ -46,7 +48,8 @@ import { SponsorsPage } from '../pages/sponsors/sponsors';
     FilmPage,
     PhotosPage,
     ContactPage,
-    SponsorsPage
+    SponsorsPage,
+    PrivacyPage
   ],
   providers: [
     StatusBar,
