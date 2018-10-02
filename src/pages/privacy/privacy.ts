@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -9,7 +9,6 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-privacy',
   templateUrl: 'privacy.html'
