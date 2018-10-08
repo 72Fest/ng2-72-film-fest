@@ -20,6 +20,7 @@ Link to privacy policy of third party service providers used by the app
 
 - [Google Play Services](https://www.google.com/policies/privacy/)
 - [Firebase Analytics](https://firebase.google.com/policies/analytics)
+- [Crashlytics](http://try.crashlytics.com/terms/privacy-policy.pdf)
 
 **Log Data**
 
